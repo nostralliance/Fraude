@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Gallery</title>
+</head>
+<body>
+    <h1>liste image présente dans le dossier</h1>
+    <ul>
+        {% for image in image_files %}
+            <li>
+                <img src="{{ url_for('static', filename=image) }}" alt="{{ image }}" title="image">
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
