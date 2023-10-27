@@ -7,7 +7,7 @@ app.config['STATIC_FOLDER'] = 'static'
 
 @app.route('/')
 def home():
-    image_folder = r"C:\Users\pierrontl\Documents\code_python\API\static"
+    image_folder = r"C:\Users\pierrontl\Documents\GitHub\Fraude\API\static"
     image_files = []
     
     for parent, dnames, fnames in os.walk(image_folder):
