@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 
 dict_texte = {}
 
-image_path = r'C:/Users/pierrontl/Documents/code_python/essaie_2.png'
+image_path = r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\OCR\essaie_2.png'
 
 # Objet easyOCR en Francais
 reader = easyocr.Reader(['fr'])
