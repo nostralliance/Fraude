@@ -12,14 +12,13 @@ def upload_pdf():
         if pdf_file:
             # Lire le contenu du fichier PDF
             pdf_content = pdf_file.read()
-            # print(pdf_content)
 
             # Convertir le contenu en base64
             pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
 
             # Créer un dictionnaire JSON avec la donnée base64
             data = {"base64": pdf_base64}
-
+            print(data)
             # Envoyer le JSON à l'autre API
             response = send_data_to_other_api(data)
 
@@ -34,7 +33,7 @@ def send_data_to_other_api(data):
     try:
         other_api_url = "http://127.0.0.1:5000/process_json"  # Remplacez ceci par l'URL de l'autre API
         headers = {'Content-Type': 'application/json'}
-        response = requests.post(other_api_url, json=data, headers=headers)
+        response = requests.post(other_api_url, json=data, headers=headers) # header on met des token dedans autorisation
 
         if response.status_code == 200:
             print(response)

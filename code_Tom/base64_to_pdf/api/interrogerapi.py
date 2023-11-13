@@ -7,7 +7,7 @@ pdf_file_path = r"C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\base64_to_
 files = {'pdf': open(pdf_file_path, 'rb')}
 
 # URL de votre API Flask
-url = "http://127.0.0.1:5000/upload_pdf"  # Assurez-vous de mettre la bonne adresse
+url = "http://192.168.1.30:5000/upload_pdf" 
 
 # Envoi de la requête POST avec le fichier PDF
 response = requests.post(url, files=files)
