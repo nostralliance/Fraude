@@ -1,0 +1,6 @@
+fastapi
+base64
+requests
+json
+os
+uvicorn

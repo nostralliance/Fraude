@@ -29,7 +29,6 @@ async def upload_pdf(pdf: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-
 @app.post('/process_base64')
 async def process_base64():
     global global_base64_data
@@ -71,4 +70,4 @@ async def process_base64():
 
 
 if __name__ == "__main__":
-    uvicorn.run(app)
+    uvicorn.run(app, host="0.0.0.0", port=8000)
