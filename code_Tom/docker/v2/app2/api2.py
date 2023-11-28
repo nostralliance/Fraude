@@ -15,8 +15,7 @@ async def process_base64(data: dict):
         # Conversion de la base64 en données binaires (PDF)
         pdf_data = base64.b64decode(base64_data, validate=True)
 
-        # Emplacement où enregistrer le fichier PDF résultant
-        output_pdf_path = r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\output.pdf'
+        output_pdf_path = r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\output1.pdf'
 
         with open(output_pdf_path, 'wb') as pdf_out:
             pdf_out.write(pdf_data)
@@ -24,12 +23,19 @@ async def process_base64(data: dict):
         pages = None  # traiter toutes les pages
         png_files = functions.pdf2img(output_pdf_path, pages)
 
-        result_dict = {
-            "message": "Traitement réussi",
-            "output_pdf_path": png_files,
-        }
+        result = []
+        for png_file in png_files:
+            png_text = functions.img2text(png_file)
+            result_ocr = criterias.dateferiee(png_text)
+            if result_ocr:
+                result.append(result_ocr)
 
-        return result_dict
+        result_dict = {
+            "date_feriee_trouvee": bool(result),
+            "output_text": png_text,
+            }
+
+        return result_dict 
 
     except Exception as e:
         print(f"An error occurred: {str(e)}")
