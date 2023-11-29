@@ -19,7 +19,9 @@ async def process_base64(data: dict):
 
         # Détection du type de fichier
         file_extension = detect_file_type(binary_data)
-        result = []
+        result_dateferiee = []
+        result_refarchives = []
+        result_nonsoumis = []
 
         if file_extension == 'pdf':
             with open(r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\fastapi\output.pdf', 'wb') as pdf_out:
@@ -35,9 +37,16 @@ async def process_base64(data: dict):
                     png_text = functions.img2text(png_file)
                     result_ocr = criterias.dateferiee(png_text)
                     result_refarchivesfaux = criterias.refarchivesfaux(png_text)
-                    print(result_refarchivesfaux)
+                    result_rononsoumis = criterias.rononsoumis(png_text)
+                    # print(result_refarchivesfaux)
                     if result_ocr:
-                        result.append(result_ocr)
+                        result_dateferiee.append(result_ocr)
+                        break
+                    elif result_refarchivesfaux:
+                        result_refarchives.append(result_refarchivesfaux)
+                        break
+                    elif result_rononsoumis:
+                        result_nonsoumis.append(result_nonsoumis)
                         break
 
         elif file_extension in ['jpg', 'jpeg', 'png']:
@@ -45,18 +54,24 @@ async def process_base64(data: dict):
             print("---Traitement de l'image---")
             png_text = functions.img2text(binary_data)
             result_refarchivesfaux = criterias.refarchivesfaux(png_text)
-            print(result_refarchivesfaux)
+            result_rononsoumis = criterias.rononsoumis(png_text)
+            # print(result_refarchivesfaux)
             # print(png_text)
             result_ocr = criterias.dateferiee(png_text)
             if result_ocr:
-                result.append(result_ocr)
+                result_dateferiee.append(result_ocr)
+            elif result_refarchivesfaux:
+                result_refarchives.append(result_refarchivesfaux)
+            elif result_rononsoumis:
+                result_nonsoumis.append(result_rononsoumis)
 
         else:
             raise HTTPException(status_code=400, detail="Format de fichier non supporté")
 
         result_dict = {
-            "date_feriee_trouvee": bool(result),  # True si une date a été trouvée, False sinon
-            "reference_archivage_trouvee": result_refarchivesfaux
+            "date_feriee_trouvee": bool(result_dateferiee),  # True si une date a été trouvée, False sinon
+            "reference_archivage_trouvee": bool(result_refarchives),
+            "rononsoumis_trouvee": bool(result_nonsoumis)
         }
 
         return result_dict
