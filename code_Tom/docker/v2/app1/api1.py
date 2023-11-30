@@ -6,7 +6,7 @@ from httpx._exceptions import ReadTimeout
 app = FastAPI()
 
 # URL du service de traitement (deuxième API)
-SERVICE_URL = "http://localhost:8001/process_base64"  # Remplacez par l'URL réelle de votre deuxième API
+SERVICE_URL = "http://localhost:8001/process_base64"
 
 @app.post("/upload_and_process")
 async def upload_and_process(pdf: UploadFile = File(...)):
