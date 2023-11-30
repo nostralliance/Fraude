@@ -11,7 +11,7 @@ from sklearn.model_selection import train_test_split
 import keras
 from keras.models import Sequential, load_model
 from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Dropout
-from tensorflow.keras import layers
+# from tensorflow.keras import layers
 
 from PIL import Image
 

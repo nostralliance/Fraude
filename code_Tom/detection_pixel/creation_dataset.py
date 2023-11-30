@@ -3,6 +3,8 @@ import csv
 import pandas as pd
 from PIL import Image
 import matplotlib.pyplot as plt
+from pathlib import Path  # Import the Path class from pathlib
+
 
 dossier_images = r"C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\detection_pixel\Tests-Ben-TMP"
 chemin_fichier_csv = r"C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\detection_pixel\data.csv"
@@ -29,45 +31,13 @@ def create_csv():
                 nom_image_affiche = nom_image
             writer.writerow([nom_image_affiche])
 
-    _df = pd.read_csv(chemin_fichier_csv, sep=';',encoding="latin-1")
-
-   
-    _df['path'] = _df['Id'].apply(lambda x:  chemin_fichier_csv.Path('Tests-Ben-TMP') / (str(x) + '.png'))
-
-    return _df
 
 
-# choix = input('choisissez : \n 1. afficher dataset\n 2. describe\n 3. info\n 4. cree dataset\n')
+    return "csv crée"
 
-# df = pd.read_csv(chemin_fichier_csv, sep=";", encoding='latin-1')
+_df = pd.read_csv(chemin_fichier_csv, sep=';',encoding="latin-1")
 
-# Afficher chaque image
-# if choix == "1":
-#     for index, row in df.iterrows():
-#         nom_image = row["Nom de l'image"]
-#         chemin_image = os.path.join(dossier_images, nom_image)
+_df['path'] = _df['id'].apply(lambda x:  Path(dossier_images) / (str(x) + '.png'))
 
-#         # Charger et afficher l'image
-#         image = Image.open(chemin_image)
-#         plt.imshow(image)
-
-#         # Obtenir le nom de base du fichier sans l'extension .png
-#         nom_base, extension = os.path.splitext(nom_image)
-#         if extension.lower() == '.png':
-#             nom_image_affiche = nom_base
-#         else:
-#             nom_image_affiche = nom_image
-
-#         plt.title(f"Image {index + 1}: {nom_image_affiche}")
-#         plt.show()
-
-
-# elif choix == "2":
-#     print(df.describe())
-
-# elif choix == "3":
-#     print(df.info())
-# elif choix == "4":
-create_csv()
-
+print(_df)
 
