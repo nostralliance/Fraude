@@ -35,6 +35,7 @@ async def process_base64(data: dict):
                     print("---Traitement de la page : " + os.path.basename(png_file) + "...")
                     # On récupère le texte extrait du png
                     png_text = functions.img2text(png_file)
+                    print("le texte est :", png_text)
                     result_ocr = criterias.dateferiee(png_text)
                     result_refarchivesfaux = criterias.refarchivesfaux(png_text)
                     result_rononsoumis = criterias.rononsoumis(png_text)
