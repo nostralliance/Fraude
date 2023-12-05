@@ -38,14 +38,14 @@ def dateferiee(pngText):
 def rononsoumis(pngText):
     # On récupère les indices relatifs au régime obligatoire
     regimeList = re.findall(r'[r|R][é|e]gime [o|O]bligatoire|[R|r][O|o]|REGIME OBLIGATOIRE', pngText)
-    print(regimeList)
+    # print(regimeList)
     # On recherche les indices relatifs aux prestations non soumis au Régime obligatoire
     sansRoList = re.findall("|".join(constants.NONRO_PRESTA), pngText)
 
     if "" in sansRoList:
         sansRoList=[]
     
-    print(sansRoList)
+    # print(sansRoList)
 
     # Si l'on trouve
     if len(regimeList) > 0 and len(sansRoList) > 0 :
@@ -91,30 +91,30 @@ def refarchivesfaux(pngText):
     if ('CPAM' in rechmot) or ('ensemble' in rechmot) or ('Agir' in rechmot):
         # On récupère la liste des références d'archivage
         refList = re.findall(r'\d{4}[ ]?[  ]?[   ]?(\d{2})(\d{3})\d{8}', pngText)
-        print(refList)
+        # print(refList)
         if not refList:
             return False
         else:
             # On récupère la liste des dates dans le texte
             dateList = re.findall(r'([0-2]{1}[0-9]{1})[/-](1[0-2]{1}|0[1-9]{1})[/-]([0-9]{2,4})', pngText)
-            print(dateList)
+            # print(dateList)
             if not dateList:
                 return False
             else :
                 dateList = list(dict.fromkeys(dateList))
-                print(dateList)
+                # print(dateList)
                 # Pour chaque référence d'archivage, on vérifie qu'il y a au moins une date qui correspond à cette référence d'archivage
                 for refSplit in refList :
-                    print(refSplit)
+                    # print(refSplit)
                     currentResult = False
                     # Pour chaque date récupérée
                     for dateSplit in dateList :
                         dateFormat = date(int(dateSplit[2]), int(dateSplit[1]), int(dateSplit[0]))
-                        print(dateFormat)
+                        # print(dateFormat)
                         dateCompare = date(int(dateSplit[2]), 1, 1)
                         dateDelta = dateFormat - dateCompare
-                        print(dateCompare)
-                        print(dateDelta.days)
+                        # print(dateCompare)
+                        # print(dateDelta.days)
                         # On vérifie que l'année correspond
                         if dateSplit[2][-2:] == refSplit[0] :
                             # On vérifie que le nombre de jour correspond

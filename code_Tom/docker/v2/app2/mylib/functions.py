@@ -10,8 +10,8 @@ import json
 # On instancie l'extracteur OCR
 reader = easyocr.Reader(['en','fr'], gpu=False)
 
-# def base64_to_pdf(fichier_json):
 
+# def base64_to_pdf(fichier_json):
 def base64topdf():
     with open(r"C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\base64.json", 'r') as f:
         json_data = json.load(f)
@@ -58,6 +58,6 @@ def img2text(pngFile) :
     textList = []
     for result in recognition_results:
         textList.append((result[1]))
-
+    print(textList)
     # On retourne la liste des textes extraits de l'image
     return "".join(textList)
