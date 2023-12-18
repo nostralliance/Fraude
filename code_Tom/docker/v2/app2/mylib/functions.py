@@ -11,6 +11,7 @@ import json
 reader = easyocr.Reader(['en','fr'], gpu=False)
 
 
+
 # def base64_to_pdf(fichier_json):
 def base64topdf():
     with open(r"C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\base64.json", 'r') as f:

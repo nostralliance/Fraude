@@ -4,6 +4,31 @@ from . import constants,paths
 from datetime import date
 from jours_feries_france import JoursFeries
 from dateutil.relativedelta import relativedelta
+from autocorrect import Speller
+import cv2
+import argparse
+from imutils import paths
+
+
+
+def is_image_blurry(image_path, threshold_scale=1.0):
+    # Charger l'image en niveaux de gris
+    image = cv2.imread(image_path)
+
+    # Vérifier si l'image a été lue correctement
+    if image is None:
+        print(f"Erreur de lecture de l'image : {image_path}")
+        return False
+
+    # Calculer la variance du gradient
+    variance = cv2.Laplacian(image, cv2.CV_64F).var()
+
+    # Ajuster le seuil en fonction de la résolution de l'image
+    resolution_threshold = threshold_scale * image.size
+
+    # Si la variance est inférieure au seuil, l'image est considérée comme floue
+    return variance < resolution_threshold
+
 
 
 def dateferiee(pngText):
@@ -85,6 +110,7 @@ def adherentssuspicieux(society, pngText):
          return False
 
 
+
 def refarchivesfaux(pngText):
     #recherche de mots indiquant que c'est un decompte
     rechmot= re.findall(r'CPAM|ensemble|Agir', pngText)
@@ -129,3 +155,5 @@ def refarchivesfaux(pngText):
                 return False
     else:
         return False
+
+
