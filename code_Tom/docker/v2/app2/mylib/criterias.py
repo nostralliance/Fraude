@@ -54,9 +54,9 @@ def rononsoumis(pngText):
         return False
     
 
-def finessfaux(society, pngText):
+def finessfaux(pngText):
     # On récupère la liste des Numéros finess des adhérents suspects
-    data = pd.read_excel(str(paths.rootPath) + '/' + society +'/depot/TMP/data/surveillance.xlsx', sheet_name="finess")
+    data = pd.read_excel(r'C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\surveillance.xlsx', sheet_name="finess")
     finessList = data["NUMERO FINESS"].tolist()
     print(finessList)
     print("|".join(str(s) for s in finessList))

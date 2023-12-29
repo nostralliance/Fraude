@@ -22,12 +22,13 @@ async def process_base64(data: dict):
         result_dateferiee = []
         result_refarchives = []
         result_nonsoumis = []
+        result_finess = []
 
         if file_extension == 'pdf':
-            with open(r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\fastapi\output.pdf', 'wb') as pdf_out:
+            with open(r'C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\fastapi\output.pdf', 'wb') as pdf_out:
                 pdf_out.write(binary_data)
 
-                pdf_file = r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\fastapi\output.pdf'
+                pdf_file = r'C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\fastapi\output.pdf'
 
                 pages = None  # traiter toutes les pages
                 png_files = functions.pdf2img(pdf_file, pages)
@@ -39,6 +40,7 @@ async def process_base64(data: dict):
                     result_ocr = criterias.dateferiee(png_text)
                     result_refarchivesfaux = criterias.refarchivesfaux(png_text)
                     result_rononsoumis = criterias.rononsoumis(png_text)
+                    result_finessfaux = criterias.finessfaux(png_text)
                     # print(result_refarchivesfaux)
                     if result_ocr:
                         result_dateferiee.append(result_ocr)
@@ -48,6 +50,9 @@ async def process_base64(data: dict):
                         break
                     elif result_rononsoumis:
                         result_nonsoumis.append(result_nonsoumis)
+                        break
+                    elif result_finessfaux:
+                        result_finess.append(result_finess)
                         break
 
         elif file_extension in ['jpg', 'jpeg', 'png']:
@@ -72,7 +77,8 @@ async def process_base64(data: dict):
         result_dict = {
             "date_feriee_trouvee": bool(result_dateferiee),  # True si une date a été trouvée, False sinon
             "reference_archivage_trouvee": bool(result_refarchives),
-            "rononsoumis_trouvee": bool(result_nonsoumis)
+            "rononsoumis_trouvee": bool(result_nonsoumis),
+            "finessfaux_trouvee": bool(result_finess)
         }
 
         return result_dict
