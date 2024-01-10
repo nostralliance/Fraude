@@ -79,9 +79,9 @@ def rononsoumis(pngText):
         return False
     
 
-def finessfaux(society, pngText):
+def finessfaux(pngText):
     # On récupère la liste des Numéros finess des adhérents suspects
-    data = pd.read_excel(str(paths.rootPath) + '/' + society +'/depot/TMP/data/surveillance.xlsx', sheet_name="finess")
+    data = pd.read_excel(r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\surveillance.xlsx', sheet_name="finess")
     finessList = data["NUMERO FINESS"].tolist()
     print(finessList)
     print("|".join(str(s) for s in finessList))
@@ -96,9 +96,9 @@ def finessfaux(society, pngText):
 
 
 
-def adherentssuspicieux(society, pngText):
+def adherentssuspicieux(pngText):
     # On récupère la liste des noms des adhérents suspects
-    data = pd.read_excel(str(paths.rootPath) + '/' + society +'/depot/TMP/data/surveillance.xlsx', sheet_name="Adhérents")
+    data = pd.read_excel(r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\surveillance.xlsx', sheet_name="Adhérents")
     usersList = data["NOM Complet"].tolist()
     print(usersList)
     resultList = re.findall("|".join(usersList).upper(), pngText.upper())
@@ -117,13 +117,13 @@ def refarchivesfaux(pngText):
     if ('CPAM' in rechmot) or ('ensemble' in rechmot) or ('Agir' in rechmot):
         # On récupère la liste des références d'archivage
         refList = re.findall(r'\d{4}[ ]?[  ]?[   ]?(\d{2})(\d{3})\d{8}', pngText)
-        # print(refList)
+        print(refList)
         if not refList:
             return False
         else:
             # On récupère la liste des dates dans le texte
             dateList = re.findall(r'([0-2]{1}[0-9]{1})[/-](1[0-2]{1}|0[1-9]{1})[/-]([0-9]{2,4})', pngText)
-            # print(dateList)
+            print(dateList)
             if not dateList:
                 return False
             else :
@@ -131,16 +131,16 @@ def refarchivesfaux(pngText):
                 # print(dateList)
                 # Pour chaque référence d'archivage, on vérifie qu'il y a au moins une date qui correspond à cette référence d'archivage
                 for refSplit in refList :
-                    # print(refSplit)
+                    print(refSplit)
                     currentResult = False
                     # Pour chaque date récupérée
                     for dateSplit in dateList :
                         dateFormat = date(int(dateSplit[2]), int(dateSplit[1]), int(dateSplit[0]))
-                        # print(dateFormat)
+                        print(dateFormat)
                         dateCompare = date(int(dateSplit[2]), 1, 1)
                         dateDelta = dateFormat - dateCompare
                         # print(dateCompare)
-                        # print(dateDelta.days)
+                        print(dateDelta.days)
                         # On vérifie que l'année correspond
                         if dateSplit[2][-2:] == refSplit[0] :
                             # On vérifie que le nombre de jour correspond

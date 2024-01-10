@@ -23,7 +23,9 @@ async def process_base64(data: dict):
         list_result_dateferiee = []
         list_result_refarchives = []
         list_result_nonsoumis = []
-        list_blur = []
+        list_finess = []
+        list_adherant = []
+        # list_blur = []
 
         if file_extension == 'pdf':
             with open(r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\fastapi\output.pdf', 'wb') as pdf_out:
@@ -35,45 +37,60 @@ async def process_base64(data: dict):
                 png_files = functions.pdf2img(pdf_file, pages)
                 for png_file in png_files:
                     print("---Traitement de la page : " + os.path.basename(png_file) + "...")
-                    blur = criterias.is_image_blurry(png_file, threshold_scale=0.0001)
-                    print(blur)
+                    # blur = criterias.is_image_blurry(png_file, threshold_scale=0.0001)
+                    # print(blur)
                     # On récupère le texte extrait du png
                     png_text = functions.img2text(png_file)
-                    print("le texte est :", png_text)
+                    nbr_pixel = functions.nbrpix(png_file)
                     result_ocr = criterias.dateferiee(png_text)
                     result_refarchivesfaux = criterias.refarchivesfaux(png_text)
                     result_rononsoumis = criterias.rononsoumis(png_text)
+                    result_finessfaux = criterias.finessfaux(png_text)
+                    result_adherantsuspicieux = criterias.adherentssuspicieux(png_text)
                     # print(result_refarchivesfaux)
                     if result_ocr:
                         list_result_dateferiee.append(result_ocr)
-                        break
+                        
                     elif result_refarchivesfaux:
                         list_result_refarchives.append(result_refarchivesfaux)
-                        break
+                        
                     elif result_rononsoumis:
                         list_result_nonsoumis.append(result_rononsoumis)
-                        break
-                    elif blur:
-                        list_blur.append(blur)
+                        
+                    elif result_finessfaux:
+                        list_finess.append(result_finessfaux)
+                        
+                    elif result_adherantsuspicieux:
+                        list_adherant.append(result_adherantsuspicieux)
+                        
+                    # elif blur:
+                    #     list_blur.append(blur)
+                    #     break
 
 
         elif file_extension in ['jpg', 'jpeg', 'png']:
             # Traitement de l'image directement
             print("---Traitement de l'image---")
             png_text = functions.img2text(binary_data)
+            nbr_pixel = functions.nbrpix(png_file)
             result_refarchivesfaux = criterias.refarchivesfaux(png_text)
             result_rononsoumis = criterias.rononsoumis(png_text)
-            # print(result_refarchivesfaux)
-            # print(png_text)
+            result_finessfaux = criterias.finessfaux(png_text)
+            result_adherantsuspicieux = criterias.adherentssuspicieux(png_text)
             result_ocr = criterias.dateferiee(png_text)
+
             if result_ocr:
                 list_result_dateferiee.append(result_ocr)
             elif result_refarchivesfaux:
                 list_result_refarchives.append(result_refarchivesfaux)
             elif result_rononsoumis:
                 list_result_nonsoumis.append(result_rononsoumis)
-            elif blur:
-                list_blur.append(blur)
+            elif result_finessfaux:
+                list_finess.append(result_finessfaux)
+            elif result_adherantsuspicieux:
+                list_adherant.append(result_adherantsuspicieux)
+            # elif blur:
+            #     list_blur.append(blur)
 
         else:
             raise HTTPException(status_code=400, detail="Format de fichier non supporté")
@@ -82,7 +99,9 @@ async def process_base64(data: dict):
             "date_feriee_trouvee": bool(list_result_dateferiee),  # True si une date a été trouvée, False sinon
             "reference_archivage_trouvee": bool(list_result_refarchives),
             "rononsoumis_trouvee": bool(list_result_nonsoumis),
-            "blur_trouvee": blur
+            "finess_faux_trouvee": bool(list_finess),
+            "adherant_suspicieux_trouvee": bool(list_adherant),
+            # "blur_trouvee": bool(blur)
 
         }
 

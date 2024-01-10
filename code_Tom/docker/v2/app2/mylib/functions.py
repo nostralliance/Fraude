@@ -4,6 +4,7 @@ from typing import Tuple
 from . import paths
 from base64 import b64decode
 import json
+from PIL import Image
 
 
 
@@ -50,6 +51,29 @@ def pdf2img(pdfFile: str ,pages: Tuple = None):
     pdf.close()
     # On retourne la liste des pngs générés
     return pngFiles
+
+
+def nbrpix(pngFile):
+    # Ouvrir l'image
+    image = Image.open(pngFile)
+
+    # Obtenir les dimensions de l'image (largeur x hauteur)
+    width, height = image.size
+
+    # Obtenir le mode de l'image (par exemple, 'RGB' pour une image couleur)
+    mode = image.mode
+
+    # Calculer le nombre total de pixels
+    pixel_count = width * height
+
+    # Afficher les informations
+    print(f"Dimensions de l'image : {width} x {height}")
+    print(f"Mode de l'image : {mode}")
+    print(f"Nombre total de pixels : {pixel_count}")
+    
+
+
+
 
 def img2text(pngFile) :
     # On récupère le texte contenu dans l'image par extraction OCR
