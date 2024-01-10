@@ -4,6 +4,31 @@ from . import constants,paths
 from datetime import date
 from jours_feries_france import JoursFeries
 from dateutil.relativedelta import relativedelta
+from autocorrect import Speller
+import cv2
+import argparse
+from imutils import paths
+
+
+
+def is_image_blurry(image_path, threshold_scale=1.0):
+    # Charger l'image en niveaux de gris
+    image = cv2.imread(image_path)
+
+    # Vérifier si l'image a été lue correctement
+    if image is None:
+        print(f"Erreur de lecture de l'image : {image_path}")
+        return False
+
+    # Calculer la variance du gradient
+    variance = cv2.Laplacian(image, cv2.CV_64F).var()
+
+    # Ajuster le seuil en fonction de la résolution de l'image
+    resolution_threshold = threshold_scale * image.size
+
+    # Si la variance est inférieure au seuil, l'image est considérée comme floue
+    return variance < resolution_threshold
+
 
 
 def dateferiee(pngText):
@@ -56,7 +81,7 @@ def rononsoumis(pngText):
 
 def finessfaux(pngText):
     # On récupère la liste des Numéros finess des adhérents suspects
-    data = pd.read_excel(r'C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\surveillance.xlsx', sheet_name="finess")
+    data = pd.read_excel(r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\surveillance.xlsx', sheet_name="finess")
     finessList = data["NUMERO FINESS"].tolist()
     print(finessList)
     print("|".join(str(s) for s in finessList))
@@ -71,9 +96,9 @@ def finessfaux(pngText):
 
 
 
-def adherentssuspicieux(society, pngText):
+def adherentssuspicieux(pngText):
     # On récupère la liste des noms des adhérents suspects
-    data = pd.read_excel(str(paths.rootPath) + '/' + society +'/depot/TMP/data/surveillance.xlsx', sheet_name="Adhérents")
+    data = pd.read_excel(r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\surveillance.xlsx', sheet_name="Adhérents")
     usersList = data["NOM Complet"].tolist()
     print(usersList)
     resultList = re.findall("|".join(usersList).upper(), pngText.upper())
@@ -85,19 +110,20 @@ def adherentssuspicieux(society, pngText):
          return False
 
 
+
 def refarchivesfaux(pngText):
     #recherche de mots indiquant que c'est un decompte
     rechmot= re.findall(r'CPAM|ensemble|Agir', pngText)
     if ('CPAM' in rechmot) or ('ensemble' in rechmot) or ('Agir' in rechmot):
         # On récupère la liste des références d'archivage
         refList = re.findall(r'\d{4}[ ]?[  ]?[   ]?(\d{2})(\d{3})\d{8}', pngText)
-        # print(refList)
+        print(refList)
         if not refList:
             return False
         else:
             # On récupère la liste des dates dans le texte
             dateList = re.findall(r'([0-2]{1}[0-9]{1})[/-](1[0-2]{1}|0[1-9]{1})[/-]([0-9]{2,4})', pngText)
-            # print(dateList)
+            print(dateList)
             if not dateList:
                 return False
             else :
@@ -105,16 +131,16 @@ def refarchivesfaux(pngText):
                 # print(dateList)
                 # Pour chaque référence d'archivage, on vérifie qu'il y a au moins une date qui correspond à cette référence d'archivage
                 for refSplit in refList :
-                    # print(refSplit)
+                    print(refSplit)
                     currentResult = False
                     # Pour chaque date récupérée
                     for dateSplit in dateList :
                         dateFormat = date(int(dateSplit[2]), int(dateSplit[1]), int(dateSplit[0]))
-                        # print(dateFormat)
+                        print(dateFormat)
                         dateCompare = date(int(dateSplit[2]), 1, 1)
                         dateDelta = dateFormat - dateCompare
                         # print(dateCompare)
-                        # print(dateDelta.days)
+                        print(dateDelta.days)
                         # On vérifie que l'année correspond
                         if dateSplit[2][-2:] == refSplit[0] :
                             # On vérifie que le nombre de jour correspond
@@ -129,3 +155,5 @@ def refarchivesfaux(pngText):
                 return False
     else:
         return False
+
+

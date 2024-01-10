@@ -1,4 +1,3 @@
-
 import pathlib
 
 #import matplotlib.pyplot as plt
@@ -11,9 +10,14 @@ from sklearn.model_selection import train_test_split
 import keras
 from keras.models import Sequential, load_model
 from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Dropout
+import datetime
+from sklearn.metrics import confusion_matrix,accuracy_score
+import seaborn as sns
+
 # from tensorflow.keras import layers
 
 from PIL import Image
+
 
 
 IMAGE_WIDTH = 128
@@ -38,7 +42,7 @@ def build_image_database(path, target):
     _df = pd.read_csv(path, sep=';', dtype={'all': str})
 
    
-    _df['path'] = _df['Id'].apply(lambda x:  pathlib.Path('facture') / (str(x) + '.jpg'))
+    _df['path'] = _df['id'].apply(lambda x:  pathlib.Path(r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\detection_pixel\texte_blanc\texte_blanc_fondblanc\facture') / (str(x) + '.png'))
 
     return _df
 
@@ -59,6 +63,10 @@ def load_resize_image(path,height,width):
   """
   
   return np.array(Image.open(path).convert('RGB').resize((width, height)))
+
+
+
+
 
 
 def build_classification_model(df:pd.DataFrame, target:str, images:str):
@@ -104,14 +112,14 @@ def build_x_and_y(df:pd.DataFrame,target:str,images:str,stratify=None):
   y= tf.keras.utils.to_categorical(df[target].astype('category').cat.codes)
 
 
+
   return x, y
 
 
 
-  # Load train & test dataset
-
-train_df= build_image_database(pathlib.Path('/data/data_autre.csv'),'Libellé')
-test_df= build_image_database(pathlib.Path('/data/test.csv'),'Libellé')
+# Load train & test dataset
+train_df= build_image_database(pathlib.Path(r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\detection_pixel\texte_blanc\data_train.csv'),'label')
+test_df= build_image_database(pathlib.Path(r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\detection_pixel\texte_blanc\data_test.csv'),'label')
 
 train_df['resized_image']=train_df.apply(lambda r:load_resize_image(r['path'],IMAGE_HEIGHT,IMAGE_WIDTH),axis=1)
 
@@ -119,24 +127,42 @@ test_df['resized_image']=test_df.apply(lambda r:load_resize_image(r['path'],IMAG
 #train_df
 # Build tensors for training & testing
 
-X_train,y_train =build_x_and_y(train_df,'Libellé','resized_image')
-X_test,y_test =build_x_and_y(test_df,'Libellé','resized_image')
+X_train,y_train =build_x_and_y(train_df,'label','resized_image')
+X_test,y_test =build_x_and_y(test_df,'label','resized_image')
 
 # BUILD TF classification model
-model = build_classification_model(train_df,'Libellé','resized_image')
+model = build_classification_model(train_df,'label','resized_image')
 
-model= build_classification_model(train_df, 'Libellé', 'resized_image')
+model= build_classification_model(train_df, 'label', 'resized_image')
 
 model.summary()
 
-epochs = 30
+epochs = 2
 history = model.fit(X_train, y_train, batch_size=96, epochs=epochs, 
                     validation_data=(X_test, y_test)
                     #callbacks=[tensorboard_callback]
                     )
 
 
-import datetime
+def classify_images(images, model, classes_names=None):
+  """Classify images through a TF model.
+  Parameters
+  ----------
+  images (np.array): set of images to classify
+  model (tf.keras.Model): TF/ Keras model
+  classes_names: dictionnary with classes names
+  Returns
+  -------
+  predicted classes
+  """
+
+  results = model.predict(images) # predict for images
+  classes = np.argmax(results, axis=1) # np.argmax returns the index of the max value per row
+  if classes_names is not None:
+    classes = np.array(classes_names[classes])
+  return classes
+
+
 def save_model(model, basename):
   """Save tf/Keras model
 
@@ -151,6 +177,15 @@ def save_model(model, basename):
   return
 
   # apply the function save_model()
-save_model(model, pathlib.Path('/opt/fraude/model_bon'))
+save_model(model, pathlib.Path(r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\detection_pixel\texte_blanc\model'))
 
 
+cm = confusion_matrix(np.argmax(y_train, axis=1),
+                        classify_images(X_train, model))
+print(cm)
+cm=pd.DataFrame(cm)
+# print(sns.heatmap(cm, annot=True))
+
+ac = accuracy_score(np.argmax(y_train, axis=1),
+                        classify_images(X_train, model))
+print(ac)
