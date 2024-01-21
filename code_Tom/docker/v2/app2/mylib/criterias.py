@@ -112,48 +112,62 @@ def adherentssuspicieux(pngText):
 
 
 def refarchivesfaux(pngText):
-    #recherche de mots indiquant que c'est un decompte
-    rechmot= re.findall(r'CPAM|ensemble|Agir', pngText)
-    if ('CPAM' in rechmot) or ('ensemble' in rechmot) or ('Agir' in rechmot):
+    # Recherche de mots indiquant que c'est un décompte
+    rechmot = re.findall(r'CPAM|ensemble|Agir', pngText)
+    
+    if 'CPAM' in rechmot or 'ensemble' in rechmot or 'Agir' in rechmot:
         # On récupère la liste des références d'archivage
         refList = re.findall(r'\d{4}[ ]?[  ]?[   ]?(\d{2})(\d{3})\d{8}', pngText)
-        print(refList)
+        print("Références d'archivage trouvées :", refList)
+
         if not refList:
             return False
         else:
             # On récupère la liste des dates dans le texte
             dateList = re.findall(r'([0-2]{1}[0-9]{1})[/-](1[0-2]{1}|0[1-9]{1})[/-]([0-9]{2,4})', pngText)
-            print(dateList)
-            if not dateList:
+            print("Dates trouvées :", dateList)
+            
+            # On récupère la date de règlement
+            date_reglement = re.findall(r'réglé le(?: :)? (0[1-9]|[12]\d|3[01])/(0[1-9]|1[0-2])/((?:\d{4}|\d{2}))(?:\sau destinataire)?', pngText)
+            print("Date de règlement :", date_reglement)
+
+            if not date_reglement:
                 return False
-            else :
-                dateList = list(dict.fromkeys(dateList))
-                # print(dateList)
+            else:
+                # Convertir la date de règlement en objet datetime
+                date_reglement = date(int(date_reglement[0][2]), int(date_reglement[0][1]), int(date_reglement[0][0]))
+
+                # Pour chaque date récupérée
+                for dateSplit in dateList:
+                    dateFormat = date(int(dateSplit[2]), int(dateSplit[1]), int(dateSplit[0]))
+                    # Comparer si une des dates de dateList est supérieure à la date de règlement
+                    if dateFormat > date_reglement:
+                        print("------Une date dans dateList est supérieure à la date de règlement !")
+                        return True
+                    else:
+                        print("aucune date est superieur a la date de reglement")
+
                 # Pour chaque référence d'archivage, on vérifie qu'il y a au moins une date qui correspond à cette référence d'archivage
-                for refSplit in refList :
-                    print(refSplit)
+                for refSplit in refList:
                     currentResult = False
                     # Pour chaque date récupérée
-                    for dateSplit in dateList :
+                    for dateSplit in dateList:
                         dateFormat = date(int(dateSplit[2]), int(dateSplit[1]), int(dateSplit[0]))
-                        print(dateFormat)
                         dateCompare = date(int(dateSplit[2]), 1, 1)
                         dateDelta = dateFormat - dateCompare
-                        # print(dateCompare)
-                        print(dateDelta.days)
+
                         # On vérifie que l'année correspond
-                        if dateSplit[2][-2:] == refSplit[0] :
-                            # On vérifie que le nombre de jour correspond
-                            if int(refSplit[1]) - constants.REF_AGE_DELTA <= int(dateDelta.days) <= int(refSplit[1]) + constants.REF_AGE_DELTA  :
+                        if dateSplit[2][-2:] == refSplit[0]:
+                            # On vérifie que le nombre de jours correspond
+                            if int(refSplit[1]) - constants.REF_AGE_DELTA <= int(dateDelta.days) <= int(refSplit[1]) + constants.REF_AGE_DELTA:
                                 currentResult = True
                                 break
-                    
-                    if currentResult == False :
-                        print("------Une fausse référence d'archivage à été trouvée !")
-                        return True 
+
+                    if currentResult == False:
+                        print("------Une fausse référence d'archivage a été trouvée !")
+                        return True
 
                 return False
     else:
         return False
-
 
