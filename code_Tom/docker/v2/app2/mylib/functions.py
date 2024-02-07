@@ -83,6 +83,17 @@ def img2text(pngFile) :
     textList = []
     for result in recognition_results:
         textList.append((result[1]))
-    print(textList)
     # On retourne la liste des textes extraits de l'image
     return "".join(textList)
+
+def img2textlist(pngFile) :
+    # On récupère le texte contenu dans l'image par extraction OCR
+    detection_result = reader.detect(pngFile, width_ths=0.7, mag_ratio=1.5)
+    recognition_results = reader.recognize(pngFile, horizontal_list = detection_result[0][0], free_list=[])
+
+    textList = []
+    for result in recognition_results:
+        textList.append((result[1]))
+    # print("le text list est :\n",textList)
+    # On retourne la liste des textes extraits de l'image
+    return textList

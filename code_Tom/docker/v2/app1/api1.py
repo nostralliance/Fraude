@@ -11,19 +11,16 @@ SERVICE_URL = "http://localhost:8001/process_base64"
 @app.post("/upload_and_process")
 async def upload_and_process(pdf: UploadFile = File(...)):
     try:
-        # print(pdf)
         # Lecture du contenu du fichier PDF
         pdf_content = await pdf.read()
-        # print(pdf_content)
 
         # Conversion en base64
         pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
-        # print(pdf_base64)
+
         # Appel à la deuxième API pour le traitement
         async with httpx.AsyncClient(timeout=3600) as client:  # Augmentez ou diminuez le délai d'attente
             try:
                 response = await client.post(SERVICE_URL, json={"base64_data": pdf_base64})
-                # print(response)
                 response.raise_for_status()
             except ReadTimeout as e:
                 raise HTTPException(status_code=504, detail="Timeout lors de l'appel à la deuxième API")
@@ -36,7 +33,7 @@ async def upload_and_process(pdf: UploadFile = File(...)):
         if response.status_code == 200:
             result = response.json()
             print("resultat :", result)
-            return {"message": "Traitement réussi", "date_feriee_trouvee": result["date_feriee_trouvee"], "reference_archivage_trouvee":result["reference_archivage_trouvee"], "rononsoumis_trouvee": result["rononsoumis_trouvee"], "finess_faux_trouvee": result["finess_faux_trouvee"], "adherant_suspicieux_trouvee": result["adherant_suspicieux_trouvee"]}
+            return {"message": "Traitement réussi", "date_feriee_trouvee": result["date_feriee_trouvee"], "reference_archivage_trouvee":result["reference_archivage_trouvee"], "rononsoumis_trouvee": result["rononsoumis_trouvee"], "finess_faux_trouvee": result["finess_faux_trouvee"], "adherant_suspicieux_trouvee": result["adherant_suspicieux_trouvee"], "date_superieur_trouver": result["date_superieur_trouver"]}
         else:
             raise HTTPException(status_code=response.status_code, detail="Erreur lors du traitement")
 
