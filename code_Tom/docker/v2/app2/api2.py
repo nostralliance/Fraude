@@ -26,6 +26,7 @@ async def process_base64(data: dict):
         list_finess = []
         list_date_compare = []
         list_adherant = []
+        list_count_ref = []
 
         if file_extension == 'pdf':
             with open(r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\output.pdf', 'wb') as pdf_out:
@@ -39,7 +40,7 @@ async def process_base64(data: dict):
                     print("---Traitement de la page : " + os.path.basename(png_file) + "...")
                     # On récupère le texte extrait du png
                     png_text = functions.img2text(png_file)
-                    # print("le texte est :\n",png_text)
+                    print("le texte est :\n",png_text)
                     png_text_list = functions.img2textlist(png_file)
                     print("le resultat de la fonction text en list est :\n", png_text_list)
                     result_ocr = criterias.dateferiee(png_text)
@@ -47,6 +48,7 @@ async def process_base64(data: dict):
                     result_rononsoumis = criterias.rononsoumis(png_text)
                     result_finessfaux = criterias.finessfaux(png_text)
                     result_date_compare = criterias.date_compare(png_text_list)
+                    result_count_ref = criterias.count_ref(png_text_list)
                     result_adherantsuspicieux = criterias.adherentssuspicieux(png_text)
 
                     if result_ocr:
@@ -63,6 +65,9 @@ async def process_base64(data: dict):
                     
                     elif result_date_compare:
                         list_date_compare.append(result_date_compare)
+                    
+                    elif result_count_ref:
+                        list_count_ref.append(result_count_ref)
                         
                     elif result_adherantsuspicieux:
                         list_adherant.append(result_adherantsuspicieux)
@@ -105,7 +110,8 @@ async def process_base64(data: dict):
             "rononsoumis_trouvee": bool(list_result_nonsoumis),
             "finess_faux_trouvee": bool(list_finess),
             "adherant_suspicieux_trouvee": bool(list_adherant),
-            "date_superieur_trouver": bool(list_date_compare)
+            "date_superieur_trouver": bool(list_date_compare),
+            "ref_superieur_trouver": bool(list_count_ref)
         }
 
         return result_dict

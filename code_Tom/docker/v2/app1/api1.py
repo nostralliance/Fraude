@@ -33,7 +33,7 @@ async def upload_and_process(pdf: UploadFile = File(...)):
         if response.status_code == 200:
             result = response.json()
             print("resultat :", result)
-            return {"message": "Traitement réussi", "date_feriee_trouvee": result["date_feriee_trouvee"], "reference_archivage_trouvee":result["reference_archivage_trouvee"], "rononsoumis_trouvee": result["rononsoumis_trouvee"], "finess_faux_trouvee": result["finess_faux_trouvee"], "adherant_suspicieux_trouvee": result["adherant_suspicieux_trouvee"], "date_superieur_trouver": result["date_superieur_trouver"]}
+            return {"message": "Traitement réussi", "date_feriee_trouvee": result["date_feriee_trouvee"], "reference_archivage_trouvee":result["reference_archivage_trouvee"], "rononsoumis_trouvee": result["rononsoumis_trouvee"], "finess_faux_trouvee": result["finess_faux_trouvee"], "adherant_suspicieux_trouvee": result["adherant_suspicieux_trouvee"], "date_superieur_trouver": result["date_superieur_trouver"], "ref_superieur_trouver": result["ref_superieur_trouver"]}
         else:
             raise HTTPException(status_code=response.status_code, detail="Erreur lors du traitement")
 

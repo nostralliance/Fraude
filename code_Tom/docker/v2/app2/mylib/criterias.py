@@ -147,7 +147,7 @@ def extract_reglement_date(value):
 
 def isDateSimple(value):
     regex_simple = r'([0-3]{1}[0-9]{1})[/-](1[0-2]{1}|0[1-9]{1})[/-]([0-9]{2,4})'
-    return re.match(regex_simple, value)
+    return re.search(regex_simple, value)
 
 
 
@@ -182,6 +182,32 @@ def date_compare(pngText):
                 date_superieur_trouver = True
                 break
     return date_superieur_trouver
+
+
+import re
+
+def count_ref(pngText):
+    result = False
+
+    for text in pngText:
+        pattern = re.compile(r'r[é|ë|è]f (\d+)[ ]?[ ][ ]?[ ]?(\d+)')
+        matches = pattern.findall(text)
+
+        if matches:
+            for match in matches:
+                group_variable = ''.join(match)
+                print("result group variable:", group_variable)
+
+                if len(group_variable) > 17:
+                    print("la reference d'archivage est superieur a 17")
+                    result = True
+                else:
+                    print("la reference d'archivage n'est pas superieur a 17")
+                    result = False
+
+    return result
+
+
 
 def refarchivesfaux(pngText):
     rechmot = re.findall(r'CPAM|ensemble|Agir', pngText)
