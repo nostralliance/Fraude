@@ -146,8 +146,8 @@ def extract_reglement_date(value):
 
 
 def isDateSimple(value):
-    regex_simple = r'([0-3]{1}[0-9]{1})[/-](1[0-2]{1}|0[1-9]{1})[/-]([0-9]{2,4})'
-    return re.search(regex_simple, value)
+    regex_simple = r'\b(?:[0-3]?[0-9][/|-](?:1[0-2]|0?[1-9])[/|-](?:\d{2}|\d{4}))\b'
+    return re.match(regex_simple, value)
 
 
 
@@ -159,9 +159,8 @@ def date_compare(pngText):
         if not started:
             currentBloc = []
             started = True
-            date_superieur_trouver = False
 
-        if isDateSimple(value):
+        if isDateSimple(value) and "au destinataire" not in value:  # Ajout de la condition ici
             currentBloc.append(value)
 
         reglement_date = extract_reglement_date(value)
@@ -170,21 +169,22 @@ def date_compare(pngText):
             myBlocs.append(currentBloc)
             currentBloc = []
 
+    date_superieur_trouver = False
     for block in myBlocs:
         date_reglement = block[-1]
         print("date de règlement :", date_reglement)
         date_normales = block[:-1]
-        print("date simple :",date_normales)
+        print("date simple :", date_normales)
 
         for date in date_normales:
             result = compare(date, date_reglement)
             if result:
                 date_superieur_trouver = True
                 break
+        if date_superieur_trouver:
+            break
     return date_superieur_trouver
 
-
-import re
 
 def count_ref(pngText):
     result = False
