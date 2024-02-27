@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='utf-8'?>
+<ns0:alto xmlns:ns0="http://www.loc.gov/standards/alto/ns-v4#">
+  <Description MeasurementUnit="pixel"/>
+  <Layout>
+    <Page ID="page1" PHYSICAL_IMG_NR="1">
+      <PrintSpace>
+        <TextBlock ID="block1" HPOS="629" VPOS="69" WIDTH="44" HEIGHT="0">
+          <TextLine ID="line1" HPOS="629" VPOS="69" WIDTH="44" HEIGHT="0">
+            <String CONTENT="Page 22" HPOS="629" VPOS="69" WIDTH="44" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block2" HPOS="105" VPOS="85" WIDTH="125" HEIGHT="0">
+          <TextLine ID="line2" HPOS="105" VPOS="85" WIDTH="125" HEIGHT="0">
+            <String CONTENT="[Assurance" HPOS="105" VPOS="85" WIDTH="125" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block3" HPOS="106" VPOS="106" WIDTH="88" HEIGHT="0">
+          <TextLine ID="line3" HPOS="106" VPOS="106" WIDTH="88" HEIGHT="0">
+            <String CONTENT="Maladie" HPOS="106" VPOS="106" WIDTH="88" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block4" HPOS="486" VPOS="116" WIDTH="28" HEIGHT="0">
+          <TextLine ID="line4" HPOS="486" VPOS="116" WIDTH="28" HEIGHT="0">
+            <String CONTENT="0 5" HPOS="486" VPOS="116" WIDTH="28" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block5" HPOS="591" VPOS="113" WIDTH="22" HEIGHT="0">
+          <TextLine ID="line5" HPOS="591" VPOS="113" WIDTH="22" HEIGHT="0">
+            <String CONTENT="LE" HPOS="591" VPOS="113" WIDTH="22" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block6" HPOS="108" VPOS="132" WIDTH="62" HEIGHT="0">
+          <TextLine ID="line6" HPOS="108" VPOS="132" WIDTH="62" HEIGHT="0">
+            <String CONTENT="Agifensenble" HPOS="108" VPOS="132" WIDTH="62" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block7" HPOS="173" VPOS="129" WIDTH="72" HEIGHT="0">
+          <TextLine ID="line7" HPOS="173" VPOS="129" WIDTH="72" HEIGHT="0">
+            <String CONTENT="protéger chacun" HPOS="173" VPOS="129" WIDTH="72" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block8" HPOS="510" VPOS="122" WIDTH="32" HEIGHT="0">
+          <TextLine ID="line8" HPOS="510" VPOS="122" WIDTH="32" HEIGHT="0">
+            <String CONTENT="FEV" HPOS="510" VPOS="122" WIDTH="32" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block9" HPOS="542" VPOS="130" WIDTH="32" HEIGHT="0">
+          <TextLine ID="line9" HPOS="542" VPOS="130" WIDTH="32" HEIGHT="0">
+            <String CONTENT="2024" HPOS="542" VPOS="130" WIDTH="32" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block10" HPOS="93" VPOS="151" WIDTH="146" HEIGHT="0">
+          <TextLine ID="line10" HPOS="93" VPOS="151" WIDTH="146" HEIGHT="0">
+            <String CONTENT="B3SUr6 Boda STEIB FERNAND" HPOS="93" VPOS="151" WIDTH="146" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block11" HPOS="55" VPOS="167" WIDTH="202" HEIGHT="0">
+          <TextLine ID="line11" HPOS="55" VPOS="167" WIDTH="202" HEIGHT="0">
+            <String CONTENT="mda Secunle Sodala 1421268 066 077 11" HPOS="55" VPOS="167" WIDTH="202" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block12" HPOS="45" VPOS="181" WIDTH="160" HEIGHT="0">
+          <TextLine ID="line12" HPOS="45" VPOS="181" WIDTH="160" HEIGHT="0">
+            <String CONTENT="Pour toulosvos Omachos utilsoz[" HPOS="45" VPOS="181" WIDTH="160" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block13" HPOS="213" VPOS="181" WIDTH="62" HEIGHT="0">
+          <TextLine ID="line13" HPOS="213" VPOS="181" WIDTH="62" HEIGHT="0">
+            <String CONTENT="compl em0i" HPOS="213" VPOS="181" WIDTH="62" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block14" HPOS="357" VPOS="177" WIDTH="46" HEIGHT="0">
+          <TextLine ID="line14" HPOS="357" VPOS="177" WIDTH="46" HEIGHT="0">
+            <String CONTENT="CPAM de [" HPOS="357" VPOS="177" WIDTH="46" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block15" HPOS="411" VPOS="177" WIDTH="74" HEIGHT="0">
+          <TextLine ID="line15" HPOS="411" VPOS="177" WIDTH="74" HEIGHT="0">
+            <String CONTENT="COTE TOPALE" HPOS="411" VPOS="177" WIDTH="74" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block16" HPOS="491" VPOS="177" WIDTH="82" HEIGHT="0">
+          <TextLine ID="line16" HPOS="491" VPOS="177" WIDTH="82" HEIGHT="0">
+            <String CONTENT="35 , tue Deacartg" HPOS="491" VPOS="177" WIDTH="82" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block17" HPOS="45" VPOS="195" WIDTH="172" HEIGHT="0">
+          <TextLine ID="line17" HPOS="45" VPOS="195" WIDTH="172" HEIGHT="0">
+            <String CONTENT="ou fappicaucn anol pou snarphono" HPOS="45" VPOS="195" WIDTH="172" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block18" HPOS="357" VPOS="189" WIDTH="110" HEIGHT="0">
+          <TextLine ID="line18" HPOS="357" VPOS="189" WIDTH="110" HEIGHT="0">
+            <String CONTENT="62108 CALAIS cEDEX" HPOS="357" VPOS="189" WIDTH="110" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block19" HPOS="379" VPOS="235" WIDTH="112" HEIGHT="0">
+          <TextLine ID="line19" HPOS="379" VPOS="235" WIDTH="112" HEIGHT="0">
+            <String CONTENT="STEIB FERNAND" HPOS="379" VPOS="235" WIDTH="112" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block20" HPOS="355" VPOS="251" WIDTH="162" HEIGHT="0">
+          <TextLine ID="line20" HPOS="355" VPOS="251" WIDTH="162" HEIGHT="0">
+            <String CONTENT="490 RUE DES HUTTIERS" HPOS="355" VPOS="251" WIDTH="162" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block21" HPOS="357" VPOS="267" WIDTH="158" HEIGHT="0">
+          <TextLine ID="line21" HPOS="357" VPOS="267" WIDTH="158" HEIGHT="0">
+            <String CONTENT="62180 RANG DU FLIERS" HPOS="357" VPOS="267" WIDTH="158" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block22" HPOS="155" VPOS="333" WIDTH="456" HEIGHT="0">
+          <TextLine ID="line22" HPOS="155" VPOS="333" WIDTH="456" HEIGHT="0">
+            <String CONTENT="Voici le detall des varsamants vous concarnant pour la perlode du 01/11/2023 au 30/11/2023" HPOS="155" VPOS="333" WIDTH="456" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block23" HPOS="155" VPOS="353" WIDTH="322" HEIGHT="0">
+          <TextLine ID="line23" HPOS="155" VPOS="353" WIDTH="322" HEIGHT="0">
+            <String CONTENT="Ces informatons ont &amp;e diractement transmises par votre calsse" HPOS="155" VPOS="353" WIDTH="322" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block24" HPOS="485" VPOS="353" WIDTH="94" HEIGHT="0">
+          <TextLine ID="line24" HPOS="485" VPOS="353" WIDTH="94" HEIGHT="0">
+            <String CONTENT="assurance maladie" HPOS="485" VPOS="353" WIDTH="94" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block25" HPOS="587" VPOS="355" WIDTH="84" HEIGHT="0">
+          <TextLine ID="line25" HPOS="587" VPOS="355" WIDTH="84" HEIGHT="0">
+            <String CONTENT="votre organisme" HPOS="587" VPOS="355" WIDTH="84" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block26" HPOS="156" VPOS="370" WIDTH="30" HEIGHT="0">
+          <TextLine ID="line26" HPOS="156" VPOS="370" WIDTH="30" HEIGHT="0">
+            <String CONTENT="como" HPOS="156" VPOS="370" WIDTH="30" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block27" HPOS="185" VPOS="367" WIDTH="54" HEIGHT="0">
+          <TextLine ID="line27" HPOS="185" VPOS="367" WIDTH="54" HEIGHT="0">
+            <String CONTENT="lémentake" HPOS="185" VPOS="367" WIDTH="54" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block28" HPOS="243" VPOS="367" WIDTH="326" HEIGHT="0">
+          <TextLine ID="line28" HPOS="243" VPOS="367" WIDTH="326" HEIGHT="0">
+            <String CONTENT="Enccneequence_vous nlavez pas besoin delulenvoyer ce relave" HPOS="243" VPOS="367" WIDTH="326" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block29" HPOS="45" VPOS="383" WIDTH="94" HEIGHT="0">
+          <TextLine ID="line29" HPOS="45" VPOS="383" WIDTH="94" HEIGHT="0">
+            <String CONTENT="pour Inlomatlon" HPOS="45" VPOS="383" WIDTH="94" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block30" HPOS="485" VPOS="401" WIDTH="50" HEIGHT="0">
+          <TextLine ID="line30" HPOS="485" VPOS="401" WIDTH="50" HEIGHT="0">
+            <String CONTENT="montant" HPOS="485" VPOS="401" WIDTH="50" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block31" HPOS="549" VPOS="401" WIDTH="46" HEIGHT="0">
+          <TextLine ID="line31" HPOS="549" VPOS="401" WIDTH="46" HEIGHT="0">
+            <String CONTENT="base du" HPOS="549" VPOS="401" WIDTH="46" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block32" HPOS="649" VPOS="401" WIDTH="50" HEIGHT="0">
+          <TextLine ID="line32" HPOS="649" VPOS="401" WIDTH="50" HEIGHT="0">
+            <String CONTENT="montant" HPOS="649" VPOS="401" WIDTH="50" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block33" HPOS="47" VPOS="415" WIDTH="34" HEIGHT="0">
+          <TextLine ID="line33" HPOS="47" VPOS="415" WIDTH="34" HEIGHT="0">
+            <String CONTENT="dates" HPOS="47" VPOS="415" WIDTH="34" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block34" HPOS="155" VPOS="415" WIDTH="122" HEIGHT="0">
+          <TextLine ID="line34" HPOS="155" VPOS="415" WIDTH="122" HEIGHT="0">
+            <String CONTENT="nature des prestadons" HPOS="155" VPOS="415" WIDTH="122" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block35" HPOS="505" VPOS="415" WIDTH="28" HEIGHT="0">
+          <TextLine ID="line35" HPOS="505" VPOS="415" WIDTH="28" HEIGHT="0">
+            <String CONTENT="payé" HPOS="505" VPOS="415" WIDTH="28" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block36" HPOS="537" VPOS="415" WIDTH="54" HEIGHT="0">
+          <TextLine ID="line36" HPOS="537" VPOS="415" WIDTH="54" HEIGHT="0">
+            <String CONTENT="rembour" HPOS="537" VPOS="415" WIDTH="54" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block37" HPOS="611" VPOS="415" WIDTH="26" HEIGHT="0">
+          <TextLine ID="line37" HPOS="611" VPOS="415" WIDTH="26" HEIGHT="0">
+            <String CONTENT="taux" HPOS="611" VPOS="415" WIDTH="26" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block38" HPOS="665" VPOS="415" WIDTH="34" HEIGHT="0">
+          <TextLine ID="line38" HPOS="665" VPOS="415" WIDTH="34" HEIGHT="0">
+            <String CONTENT="Verse" HPOS="665" VPOS="415" WIDTH="34" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block39" HPOS="155" VPOS="445" WIDTH="180" HEIGHT="0">
+          <TextLine ID="line39" HPOS="155" VPOS="445" WIDTH="180" HEIGHT="0">
+            <String CONTENT="pour FERNANDne(0) le 26/12/1942" HPOS="155" VPOS="445" WIDTH="180" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block40" HPOS="154" VPOS="462" WIDTH="36" HEIGHT="0">
+          <TextLine ID="line40" HPOS="154" VPOS="462" WIDTH="36" HEIGHT="0">
+            <String CONTENT="aladic" HPOS="154" VPOS="462" WIDTH="36" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block41" HPOS="169" VPOS="475" WIDTH="92" HEIGHT="0">
+          <TextLine ID="line41" HPOS="169" VPOS="475" WIDTH="92" HEIGHT="0">
+            <String CONTENT="8412   21333/0001813" HPOS="169" VPOS="475" WIDTH="92" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block42" HPOS="45" VPOS="489" WIDTH="54" HEIGHT="0">
+          <TextLine ID="line42" HPOS="45" VPOS="489" WIDTH="54" HEIGHT="0">
+            <String CONTENT="25/102023" HPOS="45" VPOS="489" WIDTH="54" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block43" HPOS="155" VPOS="491" WIDTH="94" HEIGHT="0">
+          <TextLine ID="line43" HPOS="155" VPOS="491" WIDTH="94" HEIGHT="0">
+            <String CONTENT="FORFNTMhERMAL" HPOS="155" VPOS="491" WIDTH="94" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block44" HPOS="258" VPOS="494" WIDTH="26" HEIGHT="0">
+          <TextLine ID="line44" HPOS="258" VPOS="494" WIDTH="26" HEIGHT="0">
+            <String CONTENT="Kirip" HPOS="258" VPOS="494" WIDTH="26" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block45" HPOS="499" VPOS="491" WIDTH="34" HEIGHT="0">
+          <TextLine ID="line45" HPOS="499" VPOS="491" WIDTH="34" HEIGHT="0">
+            <String CONTENT="64190" HPOS="499" VPOS="491" WIDTH="34" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block46" HPOS="559" VPOS="491" WIDTH="36" HEIGHT="0">
+          <TextLine ID="line46" HPOS="559" VPOS="491" WIDTH="36" HEIGHT="0">
+            <String CONTENT="558,50" HPOS="559" VPOS="491" WIDTH="36" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block47" HPOS="611" VPOS="491" WIDTH="26" HEIGHT="0">
+          <TextLine ID="line47" HPOS="611" VPOS="491" WIDTH="26" HEIGHT="0">
+            <String CONTENT="85 %" HPOS="611" VPOS="491" WIDTH="26" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block48" HPOS="663" VPOS="491" WIDTH="34" HEIGHT="0">
+          <TextLine ID="line48" HPOS="663" VPOS="491" WIDTH="34" HEIGHT="0">
+            <String CONTENT="361,73" HPOS="663" VPOS="491" WIDTH="34" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block49" HPOS="153" VPOS="505" WIDTH="434" HEIGHT="0">
+          <TextLine ID="line49" HPOS="153" VPOS="505" WIDTH="434" HEIGHT="0">
+            <String CONTENT="régké le 30/11/2023 au destinatalre ETABLISSEMENT THERMAL DE JONZAC" HPOS="153" VPOS="505" WIDTH="434" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block50" HPOS="595" VPOS="507" WIDTH="84" HEIGHT="0">
+          <TextLine ID="line50" HPOS="595" VPOS="507" WIDTH="84" HEIGHT="0">
+            <String CONTENT="361,73 eura(s)" HPOS="595" VPOS="507" WIDTH="84" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block51" HPOS="41" VPOS="641" WIDTH="58" HEIGHT="0">
+          <TextLine ID="line51" HPOS="41" VPOS="641" WIDTH="58" HEIGHT="0">
+            <String CONTENT="26/10/2023" HPOS="41" VPOS="641" WIDTH="58" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block52" HPOS="155" VPOS="637" WIDTH="520" HEIGHT="0">
+          <TextLine ID="line52" HPOS="155" VPOS="637" WIDTH="520" HEIGHT="0">
+            <String CONTENT="régle le 30/11/2023 au destinataire ETABLISSEMENT THERMAL DE JONZAC: 361,73 eura(s)" HPOS="155" VPOS="637" WIDTH="520" HEIGHT="0"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block53" HPOS="471" VPOS="76" WIDTH="55" HEIGHT="13">
+          <TextLine ID="line53" HPOS="471" VPOS="76" WIDTH="55" HEIGHT="13">
+            <String CONTENT="SERVICE E" HPOS="471" VPOS="76" WIDTH="55" HEIGHT="13"/>
+          </TextLine>
+        </TextBlock>
+        <TextBlock ID="block54" HPOS="526" VPOS="89" WIDTH="66" HEIGHT="19">
+          <TextLine ID="line54" HPOS="526" VPOS="89" WIDTH="66" HEIGHT="19">
+            <String CONTENT="COURRIER !" HPOS="526" VPOS="89" WIDTH="66" HEIGHT="19"/>
+          </TextLine>
+        </TextBlock>
+      </PrintSpace>
+    </Page>
+  </Layout>
+</ns0:alto>
