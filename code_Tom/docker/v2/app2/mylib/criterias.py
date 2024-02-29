@@ -4,10 +4,10 @@ from . import constants,paths
 from datetime import date
 from jours_feries_france import JoursFeries
 from dateutil.relativedelta import relativedelta
-from autocorrect import Speller
+# from autocorrect import Speller
 import cv2
 import argparse
-from imutils import paths
+# from imutils import paths
 from datetime import datetime
 
 

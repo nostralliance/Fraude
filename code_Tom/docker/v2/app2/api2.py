@@ -29,10 +29,10 @@ async def process_base64(data: dict):
         list_count_ref = []
 
         if file_extension == 'pdf':
-            with open(r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\output.pdf', 'wb') as pdf_out:
+            with open(r'C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\output.pdf', 'wb') as pdf_out:
                 pdf_out.write(binary_data)
 
-                pdf_file = r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\output.pdf'
+                pdf_file = r'C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\output.pdf'
 
                 pages = None  # traiter toutes les pages
                 png_files = functions.pdf2img(pdf_file, pages)
