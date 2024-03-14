@@ -31,5 +31,5 @@ def rename_images(input_folder):
         print(f"Fichier renommé : {old_path} -> {new_path}")
 
 # Exemple d'utilisation :
-input_folder = r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\detection_pixel\data_facture\blurv2'
+input_folder = r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\detection_pixel\data_facture\blurv5'
 rename_images(input_folder)

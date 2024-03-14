@@ -20,6 +20,7 @@ async def process_base64(data: dict):
 
         # Détection du type de fichier
         file_extension = detect_file_type(binary_data)
+
         list_result_dateferiee = []
         list_result_refarchives = []
         list_result_nonsoumis = []
@@ -27,12 +28,13 @@ async def process_base64(data: dict):
         list_date_compare = []
         list_adherant = []
         list_count_ref = []
+        list_blur = []
 
         if file_extension == 'pdf':
-            with open(r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\output.pdf', 'wb') as pdf_out:
+            with open(r'C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\output.pdf', 'wb') as pdf_out:
                 pdf_out.write(binary_data)
 
-                pdf_file = r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\output.pdf'
+                pdf_file = r'C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\output.pdf'
 
                 pages = None  # traiter toutes les pages
                 png_files = functions.pdf2img(pdf_file, pages)
@@ -50,6 +52,9 @@ async def process_base64(data: dict):
                     result_date_compare = criterias.date_compare(png_text_list)
                     result_count_ref = criterias.count_ref(png_text_list)
                     result_adherantsuspicieux = criterias.adherentssuspicieux(png_text)
+                    result_blur = criterias.red_window(png_file) 
+
+
 
                     if result_ocr:
                         list_result_dateferiee.append(result_ocr)
@@ -71,6 +76,9 @@ async def process_base64(data: dict):
                         
                     elif result_adherantsuspicieux:
                         list_adherant.append(result_adherantsuspicieux)
+                    
+                    elif result_blur:
+                        list_blur.append(result_blur)
                         
 
 
@@ -100,7 +108,6 @@ async def process_base64(data: dict):
             elif result_adherantsuspicieux:
                 list_adherant.append(result_adherantsuspicieux)
 
-
         else:
             raise HTTPException(status_code=400, detail="Format de fichier non supporté")
 
@@ -111,7 +118,8 @@ async def process_base64(data: dict):
             "finess_faux_trouvee": bool(list_finess),
             "adherant_suspicieux_trouvee": bool(list_adherant),
             "date_superieur_trouver": bool(list_date_compare),
-            "ref_superieur_trouver": bool(list_count_ref)
+            "ref_superieur_trouver": bool(list_count_ref),
+            "blur_trouvee": bool(list_blur)
         }
 
         return result_dict

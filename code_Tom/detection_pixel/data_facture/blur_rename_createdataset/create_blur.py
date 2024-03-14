@@ -52,7 +52,7 @@ def apply_blur_to_all(input_folder, output_folder, blur_radius=30, num_blurs=7):
                 print(f"Erreur lors du traitement de l'image {filename}: {e}")
 
 # Exemple d'utilisation avec un rayon de flou de 100 pixels et trois carrés de flou :
-input_folder = r'C:\Users\pierrontl\Desktop\texte_blanc\image_facture_non_modifier'
-output_folder = r'C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\detection_pixel\data_facture\blurv2'
+input_folder = r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\detection_pixel\data_facture\sharpv5'
+output_folder = r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\detection_pixel\data_facture\blurv5'
 
 apply_blur_to_all(input_folder, output_folder, blur_radius=100, num_blurs=7)

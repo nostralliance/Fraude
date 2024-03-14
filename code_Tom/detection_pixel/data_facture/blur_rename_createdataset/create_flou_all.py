@@ -2,10 +2,10 @@ from PIL import Image, ImageFilter
 import os
 
 # Dossier source contenant les images
-dossier_source = r"C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\detection_pixel\data_facture\all_facture"
+dossier_source = r"C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\detection_pixel\data_facture\sharpv4"
 
 # Dossier de destination pour les images floues
-dossier_destination = r"C:\Users\pierrontl\Documents\GitHub\Fraude\code_Tom\detection_pixel\data_facture"
+dossier_destination = r"C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\detection_pixel\data_facture\blurv4"
 
 # Vérifier et créer le dossier de destination s'il n'existe pas
 if not os.path.exists(dossier_destination):
@@ -23,7 +23,7 @@ for nom_fichier in os.listdir(dossier_source):
         dimg = simg.filter(ImageFilter.GaussianBlur(radius=10))
         
         # Enregistrer l'image floue dans le dossier de destination
-        chemin_image_destination = os.path.join(dossier_destination, f"{nom_fichier.split('.')[0]}_floue.jpg")
+        chemin_image_destination = os.path.join(dossier_destination, f"{nom_fichier.split('.')[0]}_floue.png")
         dimg.save(chemin_image_destination)
 
 print("Flou appliqué à toutes les images et enregistré dans le dossier de destination.")
