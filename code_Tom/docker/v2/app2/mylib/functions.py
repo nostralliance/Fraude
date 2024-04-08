@@ -15,7 +15,7 @@ reader = easyocr.Reader(['en','fr'], gpu=False)
 
 # def base64_to_pdf(fichier_json):
 def base64topdf():
-    with open(r"C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\base64.json", 'r') as f:
+    with open(r"C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\base64.json", 'r') as f:
         json_data = json.load(f)
         base = json_data.get("base64")
         result = b64decode(base, validate=True)
@@ -39,7 +39,7 @@ def pdf2img(pdfFile: str ,pages: Tuple = None):
         pageMatrix = fitz.Matrix(2, 2)
         pagePix = page.get_pixmap(matrix=pageMatrix, alpha=False)
         # On exporte la page générée
-        pngPath = r'C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\images'+ '/' + str(paths.rootPath) + paths.tmpDir + os.path.basename(pdfFile) +'/'
+        pngPath = r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\images'+ '/' + str(paths.rootPath) + paths.tmpDir + os.path.basename(pdfFile) +'/'
         # Si le répertoire dédié au pdf n'existe pas encore, on le crée
         if not os.path.exists(pngPath):
             os.makedirs(pngPath)

@@ -29,12 +29,13 @@ async def process_base64(data: dict):
         list_adherant = []
         list_count_ref = []
         list_blur = []
+        list_mat_med = []
 
         if file_extension == 'pdf':
-            with open(r'C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\output.pdf', 'wb') as pdf_out:
+            with open(r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\output.pdf', 'wb') as pdf_out:
                 pdf_out.write(binary_data)
 
-                pdf_file = r'C:\Users\tomlo\Documents\GitHub\Fraude\code_Tom\base64_to_pdf\api\output.pdf'
+                pdf_file = r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\output.pdf'
 
                 pages = None  # traiter toutes les pages
                 png_files = functions.pdf2img(pdf_file, pages)
@@ -52,7 +53,7 @@ async def process_base64(data: dict):
                     result_date_compare = criterias.date_compare(png_text_list)
                     result_count_ref = criterias.count_ref(png_text_list)
                     result_adherantsuspicieux = criterias.adherentssuspicieux(png_text)
-                    result_blur = criterias.red_window(png_file) 
+                    result_mat_med = criterias.medical_materiel(png_text)
 
 
 
@@ -76,10 +77,10 @@ async def process_base64(data: dict):
                         
                     elif result_adherantsuspicieux:
                         list_adherant.append(result_adherantsuspicieux)
-                    
-                    elif result_blur:
-                        list_blur.append(result_blur)
-                        
+
+                    elif result_mat_med:
+                        list_mat_med.append(result_mat_med)
+
 
 
         elif file_extension in ['jpg', 'jpeg', 'png']:
@@ -87,26 +88,42 @@ async def process_base64(data: dict):
             # Traitement de l'image directement
             print("---Traitement de l'image---")
             png_text = functions.img2text(binary_data)
+            png_text_list = functions.img2textlist(binary_data)
+            print("le resultat de la fonction text en list est :\n", png_text_list)
+            result_ocr = criterias.dateferiee(png_text)
             result_refarchivesfaux = criterias.refarchivesfaux(png_text)
             result_rononsoumis = criterias.rononsoumis(png_text)
             result_finessfaux = criterias.finessfaux(png_text)
+            result_date_compare = criterias.date_compare(png_text_list)
+            result_count_ref = criterias.count_ref(png_text_list)
             result_adherantsuspicieux = criterias.adherentssuspicieux(png_text)
-            result_ocr = criterias.dateferiee(png_text)
+            result_mat_med = criterias.medical_materiel(png_text)
+
+
 
             if result_ocr:
                 list_result_dateferiee.append(result_ocr)
-
+                
             elif result_refarchivesfaux:
                 list_result_refarchives.append(result_refarchivesfaux)
-
+                
             elif result_rononsoumis:
                 list_result_nonsoumis.append(result_rononsoumis)
-
+                
             elif result_finessfaux:
                 list_finess.append(result_finessfaux)
-
+            
+            elif result_date_compare:
+                list_date_compare.append(result_date_compare)
+            
+            elif result_count_ref:
+                list_count_ref.append(result_count_ref)
+                
             elif result_adherantsuspicieux:
                 list_adherant.append(result_adherantsuspicieux)
+
+            elif result_mat_med:
+                list_mat_med.append(result_mat_med)
 
         else:
             raise HTTPException(status_code=400, detail="Format de fichier non supporté")
@@ -119,7 +136,7 @@ async def process_base64(data: dict):
             "adherant_suspicieux_trouvee": bool(list_adherant),
             "date_superieur_trouver": bool(list_date_compare),
             "ref_superieur_trouver": bool(list_count_ref),
-            "blur_trouvee": bool(list_blur)
+            "materiel_medical_trouvee": bool(list_mat_med)
         }
 
         return result_dict

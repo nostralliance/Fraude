@@ -12,62 +12,6 @@ from datetime import datetime
 import numpy as np
 
 
-# Définir une fenêtre de détection du flou
-window_size = 9
-
-# Définir un seuil pour l'écart-type
-threshold = 100
-
-# Seuil pour le ratio de blanc dans les carre rouges
-white_ratio_threshold = 0.95
-
-# Seuil pour le ratio de noir dans les carre rouges
-black_ratio_threshold = 0.05
-
-
-
-
-def detect_blur(image, threshold):
-    # Calculer l'ecart-type de la luminosite des pixels
-    blur_map = cv2.Laplacian(image, cv2.CV_64F).var()
-
-    # Si l'écart-type est inferieur au seuil et compris entre 0 et 5, l'image est floue
-    if 0 < blur_map < threshold and 0 < blur_map < 3:
-        return True, blur_map  # Retourner également la valeur de la variance
-    else:
-        return False, blur_map
-
-
-def red_window(image):
-    # stocker les resultat de la detection de flou
-    blur_results = []
-    # stocker les valeurs de variance
-    variance_values = []
-
-
-    # Diviser l'image en fenetre et detecter le flou pour chaque fenetre
-    for y in range(0, image.shape[0], window_size):
-        for x in range(0, image.shape[1], window_size):
-            window = image[y:y+window_size, x:x+window_size]
-
-            is_blur, variance = detect_blur(window, threshold)
-            if is_blur:
-                # Vérifier le ratio de blanc et de noir dans le carré rouge
-                white_ratio = np.mean(window) / 255
-                black_ratio = np.mean(1 - window / 255)
-                if white_ratio <= white_ratio_threshold and black_ratio >= black_ratio_threshold:
-                    variance_values.append(variance)  # Stocker la valeur de la variance
-                    cv2.rectangle(image, (x, y), (x+window_size, y+window_size), (0, 0, 255), 2)
-                    blur_results.append(is_blur)
-    
-    # Retourner True si blur_results contient au moins une valeur True
-    print("Rsultat de True :",blur_results)
-    print("Nombre de True :", len(blur_results))
-    return any(blur_results)
-
-
-
-
 
 def dateferiee(pngText):
     # On récupère la liste des dates dans le texte
@@ -97,6 +41,42 @@ def dateferiee(pngText):
                     result = True
                     break
     return result
+
+
+
+def medical_materiel(pngText):
+    result_list = []
+
+    # RegEx pour détecter les mots-clés médicaux et les montants
+    matches = re.findall(r'(apnée|apnee|APNEE|PERFUSION|perfusion|LOCATION|location|PPC|ppc)', pngText)
+    detect_montant = re.findall(r'(?i)(?:part mutuelle|net [àa] payer|a[.]?[ ]?m[.]?[ ]?c|ticket mod[ée]rateur)\s*:? ?(\d+[ ]?[.,][ ]?\d+)', pngText)
+
+    if matches: 
+        if detect_montant:
+            print("Les montants détectés sont :", detect_montant)
+
+            for montant in detect_montant:
+                #supprimer les espaces
+                montant = montant.replace(" ", "")
+                montant_float = float(montant.replace(",", "."))
+                print("Le montant mutuelle détecté est :", montant)
+
+                if montant_float > 150.00:
+                    result_list.append(montant)
+                    print("Le montant est supérieur à 150 EUR")
+                else:
+                    print("Le prix est inférieur à 150 EUR")
+        else:
+            print("Aucun montant trouvé")
+
+        print("Facture matériel médical trouvée")
+
+    if result_list:
+        return True
+    else:
+        return False
+
+
 
 def rononsoumis(pngText):
     # On récupère les indices relatifs au régime obligatoire

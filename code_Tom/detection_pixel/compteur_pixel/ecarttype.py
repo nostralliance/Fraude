@@ -2,11 +2,11 @@ import cv2
 import numpy as np
 
 # Charger l'image
-image = cv2.imread(r"C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\detection_pixel\data_facture\sharpv5\SKM_30824010311110-02.png")
+image = cv2.imread(r"C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\detection_pixel\data_facture\sharp\7sharp.png")
 gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
 # Définir une fenêtre de détection du flou
-window_size = 16
+window_size = 8
 
 # Définir un seuil pour l'écart-type
 threshold = 10

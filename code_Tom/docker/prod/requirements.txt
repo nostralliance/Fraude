@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+python-multipart
+easyocr>=1.7.1
+requests
+PyMuPDF
