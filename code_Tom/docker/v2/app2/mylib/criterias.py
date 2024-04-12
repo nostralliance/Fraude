@@ -2,14 +2,63 @@ import re
 import pandas as pd
 from . import constants,paths
 from datetime import date
-from jours_feries_france import JoursFeries
-from dateutil.relativedelta import relativedelta
+from jours_feries_france import JoursFeries 
+from dateutil.relativedelta import relativedelta 
 # from autocorrect import Speller
-import cv2
+import cv2 
 import argparse
 # from imutils import paths
 from datetime import datetime
-import numpy as np
+import numpy as np 
+
+
+def replace_last_9(text):
+    index_last_9 = text.rfind("9")
+    if index_last_9 != -1:  # verifier si un "9" a ete rouver
+        return text[:index_last_9] + text[index_last_9:].replace("9", "", 1)
+    else:
+        return text
+
+def taux_compare(pngText):
+    result_list = []
+    regex = re.compile(r"\d{2}(?:,\d+)?[ ]?[%9]|(100%)")
+    for pourcentage_index, pourcentage in enumerate(pngText):
+
+        if re.match(regex, pourcentage):
+            if pourcentage.endswith("%"):
+                pourcentage = pourcentage.replace("%", "")
+                print(f"Pourcentage trouvé à l'index {pourcentage_index}: {pourcentage}")
+            elif pourcentage.endswith("9"):
+                pourcentage = replace_last_9(pourcentage)
+                print(f"Pourcentage trouvé à l'index {pourcentage_index}: {pourcentage}")
+                
+            if pourcentage_index > 0 and pourcentage_index < len(pngText) - 1:
+                mot_avant = pngText[pourcentage_index - 1].replace(",", ".")
+                mot_apres = pngText[pourcentage_index + 1].replace(",", ".")
+                print("Mot précédent:", mot_avant)
+                print("Mot suivant:", mot_apres)
+
+                try:
+                    res = float(mot_avant.replace(" ", ".")) * float(pourcentage) / 100
+                    print("Le résultat est :", round(res, 2))
+
+                    if round(float(res), 2) == float(mot_apres):
+                        print("C'est ok")
+                    else:
+                        result_list.append(res)
+                        print("Pas ok")
+                except ValueError:
+                    print("Erreur de conversion en float")
+
+            else:
+                print("Pas de mot précédent ou suivant")
+
+    if result_list:
+        return True
+    else:
+        return False
+
+
 
 
 
@@ -49,7 +98,7 @@ def medical_materiel(pngText):
 
     # RegEx pour détecter les mots-clés médicaux et les montants
     matches = re.findall(r'(apnée|apnee|APNEE|PERFUSION|perfusion|LOCATION|location|PPC|ppc)', pngText)
-    detect_montant = re.findall(r'(?i)(?:part mutuelle|net [àa] payer|a[.]?[ ]?m[.]?[ ]?c|ticket mod[ée]rateur)\s*:? ?(\d+[ ]?[.,][ ]?\d+)', pngText)
+    detect_montant = re.findall(r'(?i)(?:part mutuelle|net [àa] payer|a[.]?[ ]?m[.]?[ ]?c|Votre d[ûu]|ticket mod[ée]rateur)\s*:? ?(\d+[ ]?[.,][ ]?\d+)', pngText)
 
     if matches: 
         if detect_montant:
@@ -140,6 +189,8 @@ def compare(date_simple_str, date_reglement_str):
     else:
         print(f"{date_simple_str} n'est pas supérieure à {date_reglement_str}")
         return False
+
+
 
 def extract_reglement_date(value):
     regex_regle = r'réglé le (\d{1,2}/\d{1,2}/\d{4})'

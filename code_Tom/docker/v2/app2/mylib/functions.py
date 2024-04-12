@@ -1,10 +1,10 @@
-import fitz, os
-import easyocr
+import fitz, os 
+import easyocr 
 from typing import Tuple
 from . import paths
 from base64 import b64decode
 import json
-from PIL import Image
+from PIL import Image 
 
 
 
@@ -86,9 +86,11 @@ def img2text(pngFile) :
     # On retourne la liste des textes extraits de l'image
     return "".join(textList)
 
-def img2textlist(pngFile) :
+
+
+def img2textlist(pngFile):
     # On récupère le texte contenu dans l'image par extraction OCR
-    detection_result = reader.detect(pngFile, width_ths=0.7, mag_ratio=1.5)
+    detection_result = reader.detect(pngFile, width_ths=0.6, mag_ratio=1.5)
     recognition_results = reader.recognize(pngFile, horizontal_list = detection_result[0][0], free_list=[])
 
     textList = []

@@ -1,7 +1,7 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File
+from fastapi import FastAPI, HTTPException, UploadFile, File 
 import base64
 import io
-from PIL import Image
+from PIL import Image 
 from mylib import paths, functions, criterias, constants
 import os
 import argparse
@@ -30,6 +30,7 @@ async def process_base64(data: dict):
         list_count_ref = []
         list_blur = []
         list_mat_med = []
+        list_taux = []
 
         if file_extension == 'pdf':
             with open(r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\output.pdf', 'wb') as pdf_out:
@@ -46,6 +47,7 @@ async def process_base64(data: dict):
                     print("le texte est :\n",png_text)
                     png_text_list = functions.img2textlist(png_file)
                     print("le resultat de la fonction text en list est :\n", png_text_list)
+                    result_taux = criterias.taux_compare(png_text_list)
                     result_ocr = criterias.dateferiee(png_text)
                     result_refarchivesfaux = criterias.refarchivesfaux(png_text)
                     result_rononsoumis = criterias.rononsoumis(png_text)
@@ -80,6 +82,9 @@ async def process_base64(data: dict):
 
                     elif result_mat_med:
                         list_mat_med.append(result_mat_med)
+
+                    elif result_taux:
+                        list_taux.append(result_taux)
 
 
 
@@ -136,7 +141,8 @@ async def process_base64(data: dict):
             "adherant_suspicieux_trouvee": bool(list_adherant),
             "date_superieur_trouver": bool(list_date_compare),
             "ref_superieur_trouver": bool(list_count_ref),
-            "materiel_medical_trouvee": bool(list_mat_med)
+            "materiel_medical_trouvee": bool(list_mat_med),
+            "taux_trouvee": bool(list_taux)
         }
 
         return result_dict
@@ -157,5 +163,5 @@ def detect_file_type(data):
         raise HTTPException(status_code=400, detail="Format de fichier non supporté")
 
 if __name__ == "__main__":
-    import uvicorn
+    import uvicorn # type: ignore
     uvicorn.run(app, host="0.0.0.0", port=8001)

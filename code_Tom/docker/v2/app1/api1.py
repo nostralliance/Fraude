@@ -1,7 +1,8 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException
+from fastapi import FastAPI, UploadFile, File, HTTPException # type: ignore
 import base64
-import httpx
-from httpx._exceptions import ReadTimeout
+import httpx # type: ignore
+from httpx._exceptions import ReadTimeout # type: ignore
+import uvicorn # type: ignore
 
 app = FastAPI()
 
@@ -34,7 +35,7 @@ async def upload_and_process(pdf: UploadFile = File(...)):
             result = response.json()
             print("resultat :", result)
             # , "blur_trouvee": result["blur_trouvee"], "materiel_medical_trouvee":result["materiel_medical_trouvee"
-            return {"message": "Traitement réussi", "date_feriee_trouvee": result["date_feriee_trouvee"], "reference_archivage_trouvee":result["reference_archivage_trouvee"], "rononsoumis_trouvee": result["rononsoumis_trouvee"], "finess_faux_trouvee": result["finess_faux_trouvee"], "adherant_suspicieux_trouvee": result["adherant_suspicieux_trouvee"], "date_superieur_trouver": result["date_superieur_trouver"], "ref_superieur_trouver": result["ref_superieur_trouver"], "materiel_medical_trouvee":result["materiel_medical_trouvee"]}
+            return {"message": "Traitement réussi", "date_feriee_trouvee": result["date_feriee_trouvee"], "reference_archivage_trouvee":result["reference_archivage_trouvee"], "rononsoumis_trouvee": result["rononsoumis_trouvee"], "finess_faux_trouvee": result["finess_faux_trouvee"], "adherant_suspicieux_trouvee": result["adherant_suspicieux_trouvee"], "date_superieur_trouver": result["date_superieur_trouver"], "ref_superieur_trouver": result["ref_superieur_trouver"], "materiel_medical_trouvee":result["materiel_medical_trouvee"], "taux_trouvee":result["taux_trouvee"]}
         else:
             raise HTTPException(status_code=response.status_code, detail="Erreur lors du traitement")
 
@@ -44,5 +45,4 @@ async def upload_and_process(pdf: UploadFile = File(...)):
         raise HTTPException(status_code=500, detail=str(e))
 
 if __name__ == "__main__":
-    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
