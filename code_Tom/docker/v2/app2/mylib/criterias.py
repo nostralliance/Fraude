@@ -21,7 +21,7 @@ def replace_last_9(text):
 
 def taux_compare(pngText):
     result_list = []
-    regex = re.compile(r"\d{2}(?:,\d+)?[ ]?[%9]|(100%)")
+    regex = re.compile(r"\d{2}(?:,\d+)?[ ]?[%9]|(100[ ]?%)")
     for pourcentage_index, pourcentage in enumerate(pngText):
 
         if re.match(regex, pourcentage):
@@ -40,7 +40,7 @@ def taux_compare(pngText):
 
                 try:
                     res = float(mot_avant.replace(" ", ".")) * float(pourcentage) / 100
-                    print("Le résultat est :", round(res, 2))
+                    print("Le résultat est :", round(res, 3))
 
                     if round(float(res), 2) == float(mot_apres):
                         print("C'est ok")
