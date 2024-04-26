@@ -1,10 +1,8 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File 
+from fastapi import FastAPI, HTTPException
 import base64
-import io
-from PIL import Image 
-from mylib import paths, functions, criterias, constants
 import os
-import argparse
+
+from mylib import functions, criterias
 
 app = FastAPI()
 
@@ -21,128 +19,76 @@ async def process_base64(data: dict):
         # Détection du type de fichier
         file_extension = detect_file_type(binary_data)
 
-        list_result_dateferiee = []
-        list_result_refarchives = []
-        list_result_nonsoumis = []
-        list_finess = []
-        list_date_compare = []
-        list_adherant = []
-        list_count_ref = []
-        list_blur = []
-        list_mat_med = []
-        list_taux = []
+        # Variables de contrôle pour arrêter le traitement dès qu'un élément est trouvé
+        found_date = False
+        found_ref_archives = False
+        found_non_soumis = False
+        found_finess = False
+        found_adherant = False
+        found_date_compare = False
+        found_count_ref = False
+        found_mat_med = False
+        found_taux = False
 
         if file_extension == 'pdf':
-            with open(r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\output.pdf', 'wb') as pdf_out:
+            with open('output.pdf', 'wb') as pdf_out:
                 pdf_out.write(binary_data)
 
-                pdf_file = r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\output.pdf'
+            pdf_file = 'output.pdf'
+            pages = None  # traiter toutes les pages
+            png_files = functions.pdf2img(pdf_file, pages)
 
-                pages = None  # traiter toutes les pages
-                png_files = functions.pdf2img(pdf_file, pages)
-                for png_file in png_files:
-                    print("---Traitement de la page : " + os.path.basename(png_file) + "...")
-                    # On récupère le texte extrait du png
-                    png_text = functions.img2text(png_file)
-                    print("le texte est :\n",png_text)
-                    png_text_list = functions.img2textlist(png_file)
-                    print("le resultat de la fonction text en list est :\n", png_text_list)
-                    result_taux = criterias.taux_compare(png_text_list)
-                    result_ocr = criterias.dateferiee(png_text)
-                    result_refarchivesfaux = criterias.refarchivesfaux(png_text)
-                    result_rononsoumis = criterias.rononsoumis(png_text)
-                    result_finessfaux = criterias.finessfaux(png_text)
-                    result_date_compare = criterias.date_compare(png_text_list)
-                    result_count_ref = criterias.count_ref(png_text_list)
-                    result_adherantsuspicieux = criterias.adherentssuspicieux(png_text)
-                    result_mat_med = criterias.medical_materiel(png_text)
+            for png_file in png_files:
+                print("---Traitement de la page : " + os.path.basename(png_file) + "...")
+                # On récupère le texte extrait du png
+                png_text = functions.img2text(png_file)
+                png_text_list = functions.img2textlist(png_file)
 
+                # Vos critères de recherche ici
+                found_taux = criterias.taux_compare(png_text_list)
+                found_date = criterias.dateferiee(png_text)
+                found_ref_archives = criterias.refarchivesfaux(png_text)
+                found_non_soumis = criterias.rononsoumis(png_text)
+                found_finess = criterias.finessfaux(png_text)
+                found_date_compare = criterias.date_compare(png_text_list)
+                found_count_ref = criterias.count_ref(png_text_list)
+                found_adherant = criterias.adherentssuspicieux(png_text)
+                found_mat_med = criterias.medical_materiel(png_text)
 
-
-                    if result_ocr:
-                        list_result_dateferiee.append(result_ocr)
-                        
-                    elif result_refarchivesfaux:
-                        list_result_refarchives.append(result_refarchivesfaux)
-                        
-                    elif result_rononsoumis:
-                        list_result_nonsoumis.append(result_rononsoumis)
-                        
-                    elif result_finessfaux:
-                        list_finess.append(result_finessfaux)
-                    
-                    elif result_date_compare:
-                        list_date_compare.append(result_date_compare)
-                    
-                    elif result_count_ref:
-                        list_count_ref.append(result_count_ref)
-                        
-                    elif result_adherantsuspicieux:
-                        list_adherant.append(result_adherantsuspicieux)
-
-                    elif result_mat_med:
-                        list_mat_med.append(result_mat_med)
-
-                    elif result_taux:
-                        list_taux.append(result_taux)
-
-
+                # Si un élément est trouvé, on arrête le traitement
+                if found_date or found_ref_archives or found_non_soumis or found_finess or \
+                        found_date_compare or found_count_ref or found_adherant or found_mat_med or found_taux:
+                    break
 
         elif file_extension in ['jpg', 'jpeg', 'png']:
-            
             # Traitement de l'image directement
-            print("---Traitement de l'image---")
             png_text = functions.img2text(binary_data)
             png_text_list = functions.img2textlist(binary_data)
-            print("le resultat de la fonction text en list est :\n", png_text_list)
-            result_ocr = criterias.dateferiee(png_text)
-            result_refarchivesfaux = criterias.refarchivesfaux(png_text)
-            result_rononsoumis = criterias.rononsoumis(png_text)
-            result_finessfaux = criterias.finessfaux(png_text)
-            result_date_compare = criterias.date_compare(png_text_list)
-            result_count_ref = criterias.count_ref(png_text_list)
-            result_adherantsuspicieux = criterias.adherentssuspicieux(png_text)
-            result_mat_med = criterias.medical_materiel(png_text)
 
-
-
-            if result_ocr:
-                list_result_dateferiee.append(result_ocr)
-                
-            elif result_refarchivesfaux:
-                list_result_refarchives.append(result_refarchivesfaux)
-                
-            elif result_rononsoumis:
-                list_result_nonsoumis.append(result_rononsoumis)
-                
-            elif result_finessfaux:
-                list_finess.append(result_finessfaux)
-            
-            elif result_date_compare:
-                list_date_compare.append(result_date_compare)
-            
-            elif result_count_ref:
-                list_count_ref.append(result_count_ref)
-                
-            elif result_adherantsuspicieux:
-                list_adherant.append(result_adherantsuspicieux)
-
-            elif result_mat_med:
-                list_mat_med.append(result_mat_med)
+            # Vos critères de recherche ici
+            found_date = criterias.dateferiee(png_text)
+            found_ref_archives = criterias.refarchivesfaux(png_text)
+            found_non_soumis = criterias.rononsoumis(png_text)
+            found_finess = criterias.finessfaux(png_text)
+            found_date_compare = criterias.date_compare(png_text_list)
+            found_count_ref = criterias.count_ref(png_text_list)
+            found_adherant = criterias.adherentssuspicieux(png_text)
+            found_mat_med = criterias.medical_materiel(png_text)
+            found_taux = criterias.taux_compare(png_text_list)
 
         else:
             raise HTTPException(status_code=400, detail="Format de fichier non supporté")
 
         result_dict = {
-            "date_feriee_trouvee": bool(list_result_dateferiee),  # True si une date a été trouvée, False sinon
-            "reference_archivage_trouvee": bool(list_result_refarchives),
-            "rononsoumis_trouvee": bool(list_result_nonsoumis),
-            "finess_faux_trouvee": bool(list_finess),
-            "adherant_suspicieux_trouvee": bool(list_adherant),
-            "date_superieur_trouver": bool(list_date_compare),
-            "ref_superieur_trouver": bool(list_count_ref),
-            "materiel_medical_trouvee": bool(list_mat_med),
-            "taux_trouvee": bool(list_taux)
+            "date_feriee_trouvee": found_date,
+            "reference_archivage_trouvee": found_ref_archives,
+            "rononsoumis_trouvee": found_non_soumis,
+            "finess_faux_trouvee": found_finess,
+            "adherant_suspicieux_trouvee": found_adherant,
+            "date_superieur_trouver": found_date_compare,
+            "ref_superieur_trouver": found_count_ref,
+            "materiel_medical_trouvee": found_mat_med,
+            "taux_trouvee": found_taux
         }
 
         return result_dict
@@ -163,5 +109,5 @@ def detect_file_type(data):
         raise HTTPException(status_code=400, detail="Format de fichier non supporté")
 
 if __name__ == "__main__":
-    import uvicorn # type: ignore
+    import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)

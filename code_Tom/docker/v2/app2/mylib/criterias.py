@@ -21,7 +21,7 @@ def replace_last_9(text):
 
 def taux_compare(pngText):
     result_list = []
-    regex = re.compile(r"\d{2}(?:,\d+)?[ ]?[%9]|(100[ ]?%)")
+    regex = re.compile(r"\d{2}[ ]?[%9]|(100[ ]?%)")
     for pourcentage_index, pourcentage in enumerate(pngText):
 
         if re.match(regex, pourcentage):
@@ -33,6 +33,7 @@ def taux_compare(pngText):
                 print(f"Pourcentage trouvé à l'index {pourcentage_index}: {pourcentage}")
                 
             if pourcentage_index > 0 and pourcentage_index < len(pngText) - 1:
+                print(f"Pourcentage trouvé à l'index {pourcentage_index}: {pourcentage}")
                 mot_avant = pngText[pourcentage_index - 1].replace(",", ".")
                 mot_apres = pngText[pourcentage_index + 1].replace(",", ".")
                 print("Mot précédent:", mot_avant)
@@ -113,6 +114,7 @@ def medical_materiel(pngText):
                 if montant_float > 150.00:
                     result_list.append(montant)
                     print("Le montant est supérieur à 150 EUR")
+                    break
                 else:
                     print("Le prix est inférieur à 150 EUR")
         else:
@@ -155,7 +157,7 @@ def finessfaux(pngText):
     # On recherche les indices relatifs à la présence d'un numéro finess dans la page
     resultList = re.findall(r"|".join(str(s) for s in finessList), pngText)
     
-    print(resultList)
+    print("la result liste est :",resultList)
     if len(resultList) > 0 :
         return True
     else :
