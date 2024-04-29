@@ -19,7 +19,7 @@ async def process_base64(data: dict):
         # Détection du type de fichier
         file_extension = detect_file_type(binary_data)
 
-        # Variables de contrôle pour arrêter le traitement dès qu'un élément est trouvé
+        # variable de controle
         found_date = False
         found_ref_archives = False
         found_non_soumis = False
@@ -40,11 +40,9 @@ async def process_base64(data: dict):
 
             for png_file in png_files:
                 print("---Traitement de la page : " + os.path.basename(png_file) + "...")
-                # On récupère le texte extrait du png
                 png_text = functions.img2text(png_file)
                 png_text_list = functions.img2textlist(png_file)
 
-                # Vos critères de recherche ici
                 found_taux = criterias.taux_compare(png_text_list)
                 found_date = criterias.dateferiee(png_text)
                 found_ref_archives = criterias.refarchivesfaux(png_text)
@@ -55,7 +53,7 @@ async def process_base64(data: dict):
                 found_adherant = criterias.adherentssuspicieux(png_text)
                 found_mat_med = criterias.medical_materiel(png_text)
 
-                # Si un élément est trouvé, on arrête le traitement
+                # Si un élément est trouvé, on arrête le script instantanément
                 if found_date or found_ref_archives or found_non_soumis or found_finess or \
                         found_date_compare or found_count_ref or found_adherant or found_mat_med or found_taux:
                     break
@@ -65,7 +63,6 @@ async def process_base64(data: dict):
             png_text = functions.img2text(binary_data)
             png_text_list = functions.img2textlist(binary_data)
 
-            # Vos critères de recherche ici
             found_date = criterias.dateferiee(png_text)
             found_ref_archives = criterias.refarchivesfaux(png_text)
             found_non_soumis = criterias.rononsoumis(png_text)

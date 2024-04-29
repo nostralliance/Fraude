@@ -292,7 +292,6 @@ def refarchivesfaux(pngText):
             dateList = re.findall(r'([0-2]{1}[0-9]{1})[/-](1[0-2]{1}|0[1-9]{1})[/-]([0-9]{2,4})', pngText)
             print("Dates trouvées :", dateList)
 
-            # Pour chaque référence d'archivage, on vérifie qu'il y a au moins une date qui correspond à cette référence d'archivage
             for refSplit in refList:
                 currentResult = False
                 # Pour chaque date récupérée
