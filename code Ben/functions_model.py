@@ -16,6 +16,7 @@ from tensorflow.keras import layers
 from PIL import Image
 
 
+
 IMAGE_WIDTH = 128
 IMAGE_HEIGHT = IMAGE_WIDTH
 IMAGE_DEPTH = 3

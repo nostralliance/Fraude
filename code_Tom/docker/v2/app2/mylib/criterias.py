@@ -41,9 +41,9 @@ def taux_compare(pngText):
 
                 try:
                     res = float(mot_avant.replace(" ", ".")) * float(pourcentage) / 100
-                    print("Le résultat est :", round(res, 3))
+                    print("Le résultat est :", round(res, 1))
 
-                    if round(float(res), 2) == float(mot_apres):
+                    if round(float(res), 1) == round(float(mot_apres.replace(" ", ".")), 1):
                         print("C'est ok")
                     else:
                         result_list.append(res)
@@ -150,7 +150,7 @@ def rononsoumis(pngText):
 
 def finessfaux(pngText):
     # On récupère la liste des Numéros finess des adhérents suspects
-    data = pd.read_excel(r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\surveillance.xlsx', sheet_name="finess")
+    data = pd.read_excel(r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\surveillance.xlsx', sheet_name="FINESS")
     finessList = data["NUMERO FINESS"].tolist()
     # print(finessList)
     # print("|".join(str(s) for s in finessList))
@@ -168,7 +168,7 @@ def finessfaux(pngText):
 def adherentssuspicieux(pngText):
     # On récupère la liste des noms des adhérents suspects
     data = pd.read_excel(r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\surveillance.xlsx', sheet_name="Adhérents")
-    usersList = data["NOM Complet"].tolist()
+    usersList = data["NOM COMPLET"].tolist()
     # print(usersList)
     resultList = re.findall("|".join(usersList).upper(), pngText.upper())
     # print(resultList)
@@ -177,6 +177,7 @@ def adherentssuspicieux(pngText):
         return True
     else :
          return False
+
 
 
 def compare(date_simple_str, date_reglement_str):
