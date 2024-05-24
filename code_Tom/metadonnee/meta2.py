@@ -20,6 +20,6 @@ def extraire_metadonnees_image(image_path):
             print("Aucune métadonnée trouvée pour cette image.")
 
 # Exemple d'utilisation
-image_path = r"C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\metadonnee\test_pdf\modifiedbyphotoshop\SKM_30824050315580.jpg"
+image_path = r"C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app1\SKM_30823122012370.pdf_page_1.jpg"
 #C:\Users\ilboudob\Downloads\factures o tester
 extraire_metadonnees_image(image_path)
