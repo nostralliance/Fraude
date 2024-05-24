@@ -1,8 +1,8 @@
-from fastapi import FastAPI, UploadFile, File, HTTPException # type: ignore
+from fastapi import FastAPI, UploadFile, File, HTTPException
 import base64
-import httpx # type: ignore
-from httpx._exceptions import ReadTimeout # type: ignore
-import uvicorn # type: ignore
+import httpx
+from httpx._exceptions import ReadTimeout
+import uvicorn
 
 app = FastAPI()
 
@@ -19,7 +19,7 @@ async def upload_and_process(pdf: UploadFile = File(...)):
         pdf_base64 = base64.b64encode(pdf_content).decode('utf-8')
 
         # Appel à la deuxième API pour le traitement
-        async with httpx.AsyncClient(timeout=3600) as client:  # Augmentez ou diminuez le délai d'attente
+        async with httpx.AsyncClient(timeout=3600) as client:
             try:
                 response = await client.post(SERVICE_URL, json={"base64_data": pdf_base64})
                 response.raise_for_status()
@@ -34,8 +34,11 @@ async def upload_and_process(pdf: UploadFile = File(...)):
         if response.status_code == 200:
             result = response.json()
             print("resultat :", result)
-            # , "blur_trouvee": result["blur_trouvee"], "materiel_medical_trouvee":result["materiel_medical_trouvee"
-            return {"message": "Traitement réussi", "date_feriee_trouvee": result["date_feriee_trouvee"], "reference_archivage_trouvee":result["reference_archivage_trouvee"], "rononsoumis_trouvee": result["rononsoumis_trouvee"], "finess_faux_trouvee": result["finess_faux_trouvee"], "adherant_suspicieux_trouvee": result["adherant_suspicieux_trouvee"], "date_superieur_trouver": result["date_superieur_trouver"], "ref_superieur_trouver": result["ref_superieur_trouver"], "materiel_medical_trouvee":result["materiel_medical_trouvee"], "taux_trouvee":result["taux_trouvee"]}
+            
+            if result["result"] == "ok":
+                return {"message": result}
+            else:
+                return {"message": "Traitement réussi", "result": "ko"}
         else:
             raise HTTPException(status_code=response.status_code, detail="Erreur lors du traitement")
 
