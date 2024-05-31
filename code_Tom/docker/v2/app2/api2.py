@@ -49,56 +49,69 @@ async def process_file(id: str = Form(...), file: UploadFile = File(...)):
             for png_file in png_files:
                 print("---Traitement de la page : " + os.path.basename(png_file) + "...")
                 png_text = functions.img2text(png_file)
-                png_text_list = functions.img2textlist(png_file)
+                
 
                 try:
                     if criterias.finessfaux(png_text):
                         total_ok += 1
+                        print('ok')
                         total_finessfaux += 1
                         return {"id": id, "result": "ok", "motif": "numéro finess sur facture"}
                         break
 
                     if criterias.adherentssoussurveillance(png_text):
                         total_ok += 1
+                        print('ok')
                         total_adherentssoussurveillance += 1
                         return {"id": id, "result": "ok", "motif": "adherent suspicieux"}
                     
                     if criterias.refarchivesfaux(png_text):
                         total_ok += 1
+                        print('ok')
                         total_refarchivesfaux += 1
                         return {"id": id, "result": "ok", "motif": "reference archivage fausse sur facture"}
                         break
 
                     if criterias.rononsoumis(png_text):
                         total_ok += 1
+                        print('ok')
                         total_rononsoumis += 1
                         return {"id": id, "result": "ok", "motif": "regime obligatoire non soumis sur facture"}
                         break
                     
-                    if criterias.date_compare(png_text_list):
-                        total_ok += 1
-                        total_datecompare += 1
-                        return {"id": id, "result": "ok", "motif": "date reglement supérieur a date de soins sur facture"}
+                    # png_text_list = functions.img2textlist(png_file)
+                    # if criterias.date_compare(png_text_list):
+                    #     total_ok += 1
+                    #     total_datecompare += 1
+                    #     return {"id": id, "result": "ok", "motif": "date reglement supérieur a date de soins sur facture"}
                     
                     if criterias.medical_materiel(png_text):
                         total_ok += 1
+                        print('ok')
                         total_medical_materiel += 1
                         return {"id": id, "result": "ok", "motif": "montant superieur a 150 euros sur facture medical"}
 
                     if criterias.dateferiee(png_text):
                         total_ok += 1
+                        print('ok')
                         total_dateferiee =+ 1
                         return {"id": id, "result": "ok", "motif": "date fériée sur facture"}
                         break
+                    
+                    else:
+                        total_ko += 1
+                        return {"id": id, "result": "ko","motif": "Pas de suspicion de fraude sur cette facture"}
+                        os.remove(pdf_file_path)
+
 
                 except Exception as e:
+                    print(e)
                     total_ko += 1
                     return {"id": id, "result": "ko", "motif": "500, erreur sur le document"}
 
-                finally:
+                #finally:
                     # Supprimer le dossier temporaire
-                    if os.path.exists(pdf_file_path):
-                        os.remove(pdf_file_path)
+ 
 
 
 
@@ -107,8 +120,9 @@ async def process_file(id: str = Form(...), file: UploadFile = File(...)):
             # Créer un dossier temporaire avec le nom du fichier original
             temp_dir = file.filename.split('.')[0]  # Utiliser le nom de fichier sans extension
             os.makedirs(temp_dir, exist_ok=True)
-            file_name = f"{uuid.uuid4()}.{file_extension}"
+            file_name = f'{uuid.uuid4()}.{file_extension}'
             file_path = os.path.join(temp_dir, file_name)
+            print(file_path)
             with open(file_path, 'wb') as out_file:
                 out_file.write(binary_data)
 
@@ -116,59 +130,86 @@ async def process_file(id: str = Form(...), file: UploadFile = File(...)):
             for img_file in os.listdir(temp_dir):
                 print("---Traitement de l'image ---")
                 img_path = os.path.join(temp_dir, img_file)
+                if criterias.detecter_fraude_documentaire(img_path):
+                    total_ok += 1
+                    total_meta += 1
+                    shutil.rmtree(temp_dir)
+                    return {"id": id, "result": "ok", "motif": "la provenance du document est suspicieuse : photoshop, canva, excel ou word"}
+                    break
+                
                 png_text = functions.img2text(img_path)
-                png_text_list = functions.img2textlist(img_path)
-
+                
+                
                 try:
                     if criterias.finessfaux(png_text):
                         total_ok += 1
                         total_finessfaux += 1
+                        print('ok')
+                        shutil.rmtree(temp_dir)
                         return {"id": id, "result": "ok", "motif": "numéro finess sur facture"}
                         break
 
                     if criterias.adherentssoussurveillance(png_text):
                         total_ok += 1
                         total_adherentssoussurveillance += 1
+                        print('ok')
+                        shutil.rmtree(temp_dir)
                         return {"id": id, "result": "ok", "motif": "adherent suspicieux"}
+                        break
                     
                     if criterias.refarchivesfaux(png_text):
                         total_ok += 1
                         total_refarchivesfaux += 1
+                        print('ok')
+                        shutil.rmtree(temp_dir)
                         return {"id": id, "result": "ok", "motif": "reference archivage fausse sur facture"}
                         break
 
                     if criterias.rononsoumis(png_text):
                         total_ok += 1
                         total_rononsoumis += 1
+                        print('ok')
+                        shutil.rmtree(temp_dir)
                         return {"id": id, "result": "ok", "motif": "regime obligatoire non soumis sur facture"}
                         break
                     
+                    png_text_list = functions.img2textlist(img_path)
                     if criterias.date_compare(png_text_list):
                         total_ok += 1
                         total_datecompare += 1
+                        print('ok')
+                        shutil.rmtree(temp_dir)
                         return {"id": id, "result": "ok", "motif": "date reglement supérieur a date de soins sur facture"}
-                    
+                        break
+
                     if criterias.medical_materiel(png_text):
                         total_ok += 1
                         total_medical_materiel += 1
+                        print('ok')
+                        shutil.rmtree(temp_dir)
                         return {"id": id, "result": "ok", "motif": "montant superieur a 150 euros sur facture medical"}
+                        break
 
                     if criterias.dateferiee(png_text):
                         total_ok += 1
                         total_dateferiee =+ 1
+                        print('ok')
+                        shutil.rmtree(temp_dir)
                         return {"id": id, "result": "ok", "motif": "date fériée sur facture"}
                         break
+
+                    else:
+                        total_ko += 1
+                        shutil.rmtree(temp_dir)
+                        return {"id": id, "result": "ko","motif": "Pas de suspicion de fraude sur cette facture"}
+                        
+
 
                 except Exception as e:
                     print(f"An error occurred during criteria evaluation: {str(e)}")
                     raise HTTPException(status_code=500, detail="Internal Server Error")
                 
-                finally:
-                    # Supprimer le dossier temporaire
-                    if temp_dir and os.path.exists(temp_dir):
-                        shutil.rmtree(temp_dir)
-                        total_ko += 1
-                        return {"id": id, "result": "ko"}
+                        
 
         else:
             raise HTTPException(status_code=400, detail="Format de fichier non supporté")
