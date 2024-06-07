@@ -215,7 +215,9 @@ def rononsoumis(pngText):
 
 def finessfaux(pngText):
     # On récupère la liste des Numéros finess des adhérents suspects
-    data = pd.read_excel(r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\surveillance.xlsx', sheet_name="finess")
+    lien_surveillance = str(paths.rootPath) + '/surveillance.xlsx'
+    print(lien_surveillance)
+    data = pd.read_excel(lien_surveillance, sheet_name="finess")
     finessList = data["NUMERO FINESS"].tolist()
     # print(finessList)
     # print("|".join(str(s) for s in finessList))
@@ -233,7 +235,8 @@ def finessfaux(pngText):
 
 def adherentssoussurveillance(pngText):
     # On récupère la liste des noms des adhérents suspects
-    data = pd.read_excel(r'C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\docker\v2\app2\surveillance.xlsx', sheet_name="Adhérents")
+    lien_surveillance = str(paths.rootPath) + '/surveillance.xlsx'
+    data = pd.read_excel(lien_surveillance, sheet_name="Adhérents")
     usersList = data["NOM Complet"].tolist()
     # print(usersList)
     resultList = re.findall("|".join(usersList).upper(), pngText.upper())
