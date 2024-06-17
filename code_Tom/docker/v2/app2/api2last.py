@@ -57,11 +57,7 @@ async def process_base64(data: dict):
                 png_text_list = functions.img2textlist(png_file)
 
                 try:
-                    # print("traitement")
-                    if criterias.taux_compare(png_text_list):
-                        total_ok += 1
-                        total_taux_compare += 1
-                        return {"id": id, "result": "ok", "motif": "taux inexacte sur facture"}
+
 
                     if criterias.dateferiee(png_text):
                         total_ok += 1
@@ -88,12 +84,8 @@ async def process_base64(data: dict):
                         total_datecompare += 1
                         return {"id": id, "result": "ok", "motif": "date reglement supérieur a date de soins sur facture"}
 
-                    if criterias.count_ref(png_text_list):
-                        total_ok += 1
-                        total_count_ref += 1
-                        return {"id": id, "result": "ok", "motif": "reference archivage superieur a 17"}
 
-                    if criterias.adherentssuspicieux(png_text):
+                    if criterias.adherentssoussurveillance(png_text):
                         total_ok += 1
                         total_adherentsuspicieux += 1
                         return {"id": id, "result": "ok", "motif": "adherent suspicieux"}
