@@ -82,7 +82,6 @@ async def process_base64(data: dict):
                         total_datecompare += 1
                         return {"id": id, "result": "ok", "motif": "date reglement supérieur a date de soins sur facture"}
 
-
                     if criterias.adherentssoussurveillance(png_text):
                         total_ok += 1
                         total_adherentsuspicieux += 1
