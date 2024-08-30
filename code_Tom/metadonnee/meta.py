@@ -29,5 +29,5 @@ def detecter_fraude_documentaire(pdf_path):
     document.close()
 
 # Exemple d'utilisation
-pdf_path = r"C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\metadonnee\test_pdf\sharp\14sharp.pdf"
+pdf_path = r"C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code_Tom\metadonnee\bb231640c000_1721392906825 1.pdf"
 detecter_fraude_documentaire(pdf_path)
