@@ -105,12 +105,12 @@ if uploaded_file:
 predict_btn = st.button("Identify", disabled=(uploaded_file is None))
 
 if predict_btn :
-    Path_class = "classe_name.txt"
+    Path_class = r"C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code Ben\classe_name.txt"
     #mod = 'Libellé.h5'
     mod = os.path.join('home', os.path.sep, 'Libellé.h5')
     #print(mod)
     #model = tf.saved_model.load("/Libellé.h5")
-    model = load_model("model_autre_ameliorer.h5")
+    model = load_model(r"C:\Users\pierrontl\OneDrive - GIE SIMA\Documents\GitHub\Fraude\code Ben\model_ame.h5")
     model.summary()
     #image= [np.array(Image.open(path)
     #print(loaded_image.shape)
